@@ -47,6 +47,9 @@
   <ItemGroup>
      <Compile Include="Assets\Scripts\BonusGenerator.cs" />
      <Compile Include="Assets\Scripts\Control.cs" />
+     <Compile Include="Assets\Scripts\GoalScript.cs" />
+     <Compile Include="Assets\Scripts\ScoreScript.cs" />
+     <Compile Include="Assets\Scripts\TimerUI.cs" />
      <Compile Include="Assets\Scripts\menu.cs" />
      <Compile Include="Assets\SixenseInput\DemoScenes\Scripts\SixenseHand.cs" />
      <Compile Include="Assets\SixenseInput\DemoScenes\Scripts\SixenseHandsController.cs" />
