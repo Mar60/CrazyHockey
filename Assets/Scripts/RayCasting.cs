@@ -11,6 +11,7 @@ using System.Collections;
 **/
 public class RayCasting : MonoBehaviour
 {
+    private const string LOG_TAG = "RayCasting - ";
 
     private float distanceToObj;    // Distance entre le personnage et l'objet saisi
     private Rigidbody attachedObject;   // Objet saisi, null si aucun objet saisi
@@ -39,7 +40,7 @@ public class RayCasting : MonoBehaviour
 
         if (rayCasted)
         {
-            rayCasted = hitInfo.transform.CompareTag("Draggable");
+            rayCasted = hitInfo.transform.CompareTag(LOG_TAG + "Draggable");
         }
         // rayCasted est true si un objet possédant le tag draggable est détécté
 
@@ -47,7 +48,7 @@ public class RayCasting : MonoBehaviour
         {
             if (rayCasted)
             {
-                Debug.Log("Object attached");
+                Debug.Log(LOG_TAG + "Object attached");
                 attachedObject = hitInfo.rigidbody; //On recupere le rigidbody pour saisir l'objet
                 attachedObject.isKinematic = true;
                 distanceToObj = hitInfo.distance;
@@ -59,7 +60,7 @@ public class RayCasting : MonoBehaviour
         {
             attachedObject.isKinematic = false;
             attachedObject = null;
-            Debug.Log("Object detached");
+            Debug.Log(LOG_TAG + "Object detached");
             /*if (rayCasted)
             {
                 Cursor.SetCursor(cursorDraggable, hotSpot, cursorMode);
