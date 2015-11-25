@@ -19,7 +19,7 @@ public class ShieldController : MonoBehaviour {
     public void riseShield() {
         Debug.Log(LOG_TAG + "The shield is rised");
         shield.GetComponent<Animator>().SetBool("RiseShield",true);
-        Debug.Log(LOG_TAG + "ShieldController The shield is lowered");
+        Debug.Log(LOG_TAG + "ShieldController The shield is lowered");//TODO add a timer
         shield.GetComponent<Animator>().SetBool("RiseShield", false);
 
 
