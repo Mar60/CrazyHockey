@@ -2,6 +2,8 @@
 using System.Collections;
 
 public class BonusGenerator : MonoBehaviour {
+    private const string LOG_TAG = "BonusGenerator - ";
+
 
     const int MAXITEMS = 5; // Maximum number of items in the scene
     private int bonusCounter; // Current number of items in the scene
@@ -25,10 +27,10 @@ public class BonusGenerator : MonoBehaviour {
         if (bonusCounter < MAXITEMS)
         {
             float x = Random.Range(fieldBounds.min.x, fieldBounds.max.x);
-            float y = fieldBounds.max.y + bonusSize.y / 2;
+            float y = fieldBounds.min.y + bonusSize.y;
             float z = (fieldBounds.min.z + fieldBounds.max.z )/ 2; //we put the bonus in the middle of the field
             Vector3 bonusPosition = new Vector3(x, y, z);
-            Debug.Log("Creation bonus  (" + x + ", " + y + " , " + z + ")"); 
+            Debug.Log(LOG_TAG + "Creation bonus  (" + x + ", " + y + " , " + z + ")"); 
             Instantiate(bonusPrefab, bonusPosition, Quaternion.identity);
             bonusCounter++;
         }

@@ -2,6 +2,8 @@
 using System.Collections;
 
 /**
+ * This class is used to enable a player to change the field 
+ * see http://answers.unity3d.com/questions/11093/modifying-terrain-height-under-a-gameobject-at-run.html
  * Cette classe permet de créer un rayon partant de la caméra en direction de la position du curseur dans l'environnement 3D.
  * L'objet portant se script peut saisir des objets, les manipuler et les déplacer grace au clique gauche de la souris.
  * Trois curseurs sont implémentés : 
@@ -11,6 +13,7 @@ using System.Collections;
 **/
 public class RayCasting : MonoBehaviour
 {
+    private const string LOG_TAG = "RayCasting - ";
 
     private float distanceToObj;    // Distance entre le personnage et l'objet saisi
     private Rigidbody attachedObject;   // Objet saisi, null si aucun objet saisi
@@ -47,10 +50,12 @@ public class RayCasting : MonoBehaviour
         {
             if (rayCasted)
             {
-                Debug.Log("Object attached");
+                Debug.Log(LOG_TAG + "Object attached");
                 attachedObject = hitInfo.rigidbody; //On recupere le rigidbody pour saisir l'objet
-                attachedObject.isKinematic = true;
-                distanceToObj = hitInfo.distance;
+				//TODO Terrain.terrainData.GetHeights(xBase,yBase,xRes);
+				//TODO SetHeights() https://www.youtube.com/watch?v=1j9McAMK4lE
+				//attachedObject.isKinematic = true;
+                //distanceToObj = hitInfo.distance;
                // Cursor.SetCursor(cursorDragged, hotSpot, cursorMode);
             }
         }
@@ -59,7 +64,7 @@ public class RayCasting : MonoBehaviour
         {
             attachedObject.isKinematic = false;
             attachedObject = null;
-            Debug.Log("Object detached");
+            Debug.Log(LOG_TAG + "Object detached");
             /*if (rayCasted)
             {
                 Cursor.SetCursor(cursorDraggable, hotSpot, cursorMode);
