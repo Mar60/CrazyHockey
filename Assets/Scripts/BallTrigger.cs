@@ -22,7 +22,7 @@ public class BallTrigger : MonoBehaviour {
 	
 	}
 
-    void OnTriggerEnter(Collider other)
+    void OnTriggerEnter(Collider collideEvent)
     {
         if (other.gameObject.CompareTag(BONUS_SHIELD_TAG))
         {
