@@ -15,7 +15,7 @@ public class BallTrigger : MonoBehaviour {
 	
 	}
 
-    void OnTriggerEnter(Collision collideEvent)
+    void OnTriggerEnter(Collider collideEvent)
     {
         if (collideEvent.gameObject.CompareTag("BonusShield"))
         {

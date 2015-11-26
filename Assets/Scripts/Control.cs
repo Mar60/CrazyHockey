@@ -2,7 +2,7 @@
 using System.Collections; 
 
 public class Control : MonoBehaviour {  
-	public int speed = 2;  
+	private int speed = 500;  
 	private Rigidbody rb;
     float startTime = 0.0f;
     bool count = true;
@@ -58,7 +58,7 @@ public class Control : MonoBehaviour {
     
     void startforce()
     {
-        rb.AddForce(Vector3.forward * speed);
+        rb.AddForce(Vector3.back * speed);
     }
     public float getTimer()
     {
