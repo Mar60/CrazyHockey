@@ -45,10 +45,14 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Scripts\BallTrapController.cs" />
      <Compile Include="Assets\Scripts\BallTrigger.cs" />
      <Compile Include="Assets\Scripts\BonusGenerator.cs" />
+     <Compile Include="Assets\Scripts\BonusPlayerManager.cs" />
      <Compile Include="Assets\Scripts\Control.cs" />
+     <Compile Include="Assets\Scripts\FieldChangeController.cs" />
      <Compile Include="Assets\Scripts\GoalScript.cs" />
+     <Compile Include="Assets\Scripts\RaiseLowerTerrain.cs" />
      <Compile Include="Assets\Scripts\RayCasting.cs" />
      <Compile Include="Assets\Scripts\ScoreScript.cs" />
      <Compile Include="Assets\Scripts\ShieldController.cs" />
@@ -60,11 +64,17 @@
      <Compile Include="Assets\SixenseInput\DemoScenes\Scripts\SixenseObjectController.cs" />
      <None Include="Assets\Standard Assets\CrossPlatformInput\CrossPlatformInputGuidelines.txt" />
      <None Include="Assets\Standard Assets\Characters\FirstPersonCharacter\FirstPersonCharacterGuidelines.txt" />
+ <Reference Include="UnityEngine.Advertisements">
+ <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/Advertisements/UnityEngine.Advertisements.dll</HintPath>
+ </Reference>
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.Networking">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.Analytics">
+ <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/UnityAnalytics/UnityEngine.Analytics.dll</HintPath>
  </Reference>
  <Reference Include="Mono.Cecil">
  <HintPath>C:/Program Files/Unity/Editor/Data/Managed/Mono.Cecil.dll</HintPath>
