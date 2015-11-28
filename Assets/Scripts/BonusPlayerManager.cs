@@ -5,9 +5,11 @@ public class BonusPlayerManager : MonoBehaviour {
 
     private const string LOG_TAG = "BonusPlayerManager - ";
 
-    private bool shieldPowerIsActive = false;
+    private bool shieldPowerIsActive = true;
     private  bool ballTrapPowerIsActive = false;
     private  bool projectilePowerIsActive= false;
+	private  bool terrainPowerIsActive= false;
+
 
     // Use this for initialization
     void Start () {
@@ -15,10 +17,11 @@ public class BonusPlayerManager : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
-        if (shieldPowerIsActive && Input.GetKey("1")) //TODO change with razer control
+	void Update () {//TODO match item on the field with power enabled
+        if (shieldPowerIsActive && Input.GetKeyDown("1")) //TODO change with razer control
         {
             GetComponent<ShieldController>().riseShield();
+			//TODO add this line when FPS installed shieldPowerIsActive = false;
         }
         else if (ballTrapPowerIsActive && Input.GetKey("2"))//TODO change with razer control
         {
@@ -28,6 +31,10 @@ public class BonusPlayerManager : MonoBehaviour {
         {
 
         }
+		else if (terrainPowerIsActive && Input.GetKey("4"))//TODO change with razer control
+		{
+			
+		}
     
     }
 
@@ -45,5 +52,10 @@ public class BonusPlayerManager : MonoBehaviour {
         Debug.Log(LOG_TAG + "Get projectile power");
         projectilePowerIsActive = true;
     }
+	public void activateTerrainPower()
+	{
+		Debug.Log(LOG_TAG + "Get terrain/mountain power");
+		terrainPowerIsActive = true;
+	}
 }
 

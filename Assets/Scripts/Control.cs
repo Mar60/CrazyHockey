@@ -2,7 +2,7 @@
 using System.Collections; 
 
 public class Control : MonoBehaviour {  
-	private int speed = 500;  
+	private int speed = 50;  
 	private Rigidbody rb;
     float startTime = 0.0f;
     bool count = true;

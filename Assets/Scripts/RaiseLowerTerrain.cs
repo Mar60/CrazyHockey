@@ -3,6 +3,7 @@ using System.Collections;
 
 public class RaiseLowerTerrain : MonoBehaviour
 {
+	private const string LOG_TAG = "RaiseLowerTerrain - ";
 	public bool TestWithMouse = true;
 	public Terrain myTerrain;
 	public int SmoothArea;
@@ -17,8 +18,22 @@ public class RaiseLowerTerrain : MonoBehaviour
 	protected int alphaMapHeight;
 	protected int numOfAlphaLayers;
 	private float[, ,] alphaMapBackup;
-	
-	
+
+
+	private const int LENX_TO_RISE_AREA = 10;
+	private const int LENZ_TO_RISE_AREA = 10;
+	private const float INCDEC_TO_RISE_AREA = 0.01f;
+	private const float CRATER_SIZE_IN_METERS = 10 * 2f;
+
+
+	private Vector3[] picPointPlayer = new Vector3[3];
+
+	private bool flagStartTimer = false;
+	private const float TIME_MAX_PIC_ACTIVE = 10.0f;
+	private float startTime = 0.0f;
+
+	private  Vector3 NULL_VECTOR3 = new Vector3(200000,200000,200000);
+
 	void Start()
 	{
 		xResolution = myTerrain.terrainData.heightmapWidth;
@@ -26,12 +41,15 @@ public class RaiseLowerTerrain : MonoBehaviour
 		alphaMapWidth = myTerrain.terrainData.alphamapWidth;
 		alphaMapHeight = myTerrain.terrainData.alphamapHeight;
 		numOfAlphaLayers = myTerrain.terrainData.alphamapLayers;
-		
 		if (Debug.isDebugBuild)
 		{
 			heights = myTerrain.terrainData.GetHeights (0, 0, xResolution, zResolution);    
 			heightMapBackup = myTerrain.terrainData.GetHeights(0, 0, xResolution, zResolution);
 			alphaMapBackup = myTerrain.terrainData.GetAlphamaps(0, 0, alphaMapWidth, alphaMapHeight);   
+		}
+
+		for(int index = 0; index <picPointPlayer.Length; index++){
+			picPointPlayer [index]=NULL_VECTOR3;
 		}
 		
 	}
@@ -43,13 +61,16 @@ public class RaiseLowerTerrain : MonoBehaviour
 			myTerrain.terrainData.SetAlphamaps(0, 0, alphaMapBackup);
 		}
 	}
-	
+
+
 	
 	void Update()
 	{
 		// This is just for testing with mouse!
 		// Point mouse to the Terrain. Left mouse button
 		// raises and right mouse button lowers terrain.
+		timerRun();
+
 		if (TestWithMouse == true) 
 		{
 			if (Input.GetMouseButtonDown (0)) 
@@ -58,11 +79,14 @@ public class RaiseLowerTerrain : MonoBehaviour
 				Ray ray = Camera.main.ScreenPointToRay (Input.mousePosition);
 				if (Physics.Raycast (ray, out hit)) 
 				{
-					// area middle point x and z, area width, area height, smoothing distance, area height adjust
-					//raiselowerTerrainArea (hit.point, 10, 10, SmoothArea, 0.01f); 
-					raiselowerTerrainPoint(hit.point,0.01f);
-					// area middle point x and z, area size, texture ID from terrain textures
-					TextureDeformation (hit.point, 10 * 2f, DeformationTextureNum);
+					if(oneMoreActivated(hit.point)){
+
+						// area middle point x and z, area width, area height, smoothing distance, area height adjust
+						raiselowerTerrainArea (hit.point, LENX_TO_RISE_AREA, LENZ_TO_RISE_AREA, SmoothArea, INCDEC_TO_RISE_AREA); 
+						//raiselowerTerrainPoint(hit.point,0.01f);
+						// area middle point x and z, area size, texture ID from terrain textures
+						//TextureDeformation (hit.point, CRATER_SIZE_IN_METERS, DeformationTextureNum);
+					}
 				}
 			}
 			if (Input.GetMouseButtonDown (1)) 
@@ -72,13 +96,84 @@ public class RaiseLowerTerrain : MonoBehaviour
 				if (Physics.Raycast (ray, out hit)) 
 				{
 					// area middle point x and z, area width, area height, smoothing distance, area height adjust
-					//raiselowerTerrainArea (hit.point, 10, 10, SmoothArea, -0.01f);
-					raiselowerTerrainPoint(hit.point,-0.01f);
+					raiselowerTerrainArea (hit.point, 10, 10, SmoothArea, -0.01f);
+					//raiselowerTerrainPoint(hit.point,-0.01f);
 					// area middle point x and z, area size, texture ID from terrain textures
 					TextureDeformation (hit.point, 10 * 2f, 0);
 				}
 			}
 		}
+	}
+
+	/*private void riseHeightSlowly(){
+
+		if (Input.GetMouseButtonDown (0)) 
+		{
+			RaycastHit hit;
+			Ray ray = Camera.main.ScreenPointToRay (Input.mousePosition);
+			if (Physics.Raycast (ray, out hit)) 
+			{
+				if(oneMoreActivated(hit.point)){
+					
+					// area middle point x and z, area width, area height, smoothing distance, area height adjust
+					raiselowerTerrainArea (hit.point, LENX_TO_RISE_AREA, LENZ_TO_RISE_AREA, SmoothArea, INCDEC_TO_RISE_AREA); 
+					//raiselowerTerrainPoint(hit.point,0.01f);
+					// area middle point x and z, area size, texture ID from terrain textures
+					//TextureDeformation (hit.point, CRATER_SIZE_IN_METERS, DeformationTextureNum);
+				}
+			}
+		}
+	}*/
+
+
+	private bool oneMoreActivated(Vector3 newPic){
+		bool successNewPic = false;
+		for(int index = 0; index <picPointPlayer.Length; index++){
+			if (picPointPlayer [index].Equals (NULL_VECTOR3)){
+				picPointPlayer [index]=newPic;
+				successNewPic = true;
+				break;
+			}
+		}
+		if(!picPointPlayer.GetValue(picPointPlayer.Length-1).Equals(NULL_VECTOR3)){ 
+			flagStartTimer=true;
+			startTime = Time.time;//Time when the shield was rised
+
+			Debug.Log(LOG_TAG+"too much pic start timer");
+		}
+		return successNewPic;
+	}
+
+	private void timerRun(){
+		if(flagStartTimer == true){
+			Debug.Log(LOG_TAG+"timer for pic is running");
+
+			//currentTimer = TIME_MAX_PIC_ACTIVE - (Time.time - startTime);
+			if(startTime + TIME_MAX_PIC_ACTIVE < Time.time){
+				flagStartTimer = false;
+				for(int index = 0; index <picPointPlayer.Length; index++){
+				}
+				for(int index = 0; index <picPointPlayer.Length; index++){
+					erasePoint(picPointPlayer[index]);
+					picPointPlayer[index]= NULL_VECTOR3;
+				}
+
+			}
+		}
+	}
+
+	private void erasePoint(Vector3 pointToErase){
+		Debug.Log(LOG_TAG+" erasing pic in method erase1"+pointToErase.ToString());
+
+		// area middle point x and z, area width, area height, smoothing distance, area height adjust
+		raiselowerTerrainArea (pointToErase, LENX_TO_RISE_AREA, LENZ_TO_RISE_AREA, SmoothArea, -INCDEC_TO_RISE_AREA);
+		Debug.Log(LOG_TAG+" erasing pic in method erase2"+pointToErase.ToString());
+
+		//raiselowerTerrainPoint(hit.point,-0.01f);
+		// area middle point x and z, area size, texture ID from terrain textures
+		//TextureDeformation (pointToErase, CRATER_SIZE_IN_METERS, 0);
+		Debug.Log(LOG_TAG+" erasing pic in method erase3"+pointToErase.ToString());
+
 	}
 	
 	
@@ -121,11 +216,22 @@ public class RaiseLowerTerrain : MonoBehaviour
 	private void raiselowerTerrainPoint(Vector3 point, float incdec)
 	{
 		int terX =(int)((point.x / myTerrain.terrainData.size.x) * xResolution);
+		Debug.Log (LOG_TAG+"terX : "+terX);
+
 		int terZ =(int)((point.z / myTerrain.terrainData.size.z) * zResolution);
+		Debug.Log (LOG_TAG+"terZ : "+terZ);
+
+
 		float y = heights[terX,terZ];
+		Debug.Log (LOG_TAG+y+"heights"+heights[terX,terZ]);
+
 		y += incdec;
+		Debug.Log (LOG_TAG+"y"+y);
+
 		float[,] height = new float[1,1];
 		height[0,0] = Mathf.Clamp(y,0,1);
+		Debug.Log (LOG_TAG+"height"+height[0,0]);
+
 		heights[terX,terZ] = Mathf.Clamp(y,0,1);
 		myTerrain.terrainData.SetHeights(terX, terZ, height);
 	}
