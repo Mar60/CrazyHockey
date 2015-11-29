@@ -5,7 +5,7 @@ public class BonusGenerator : MonoBehaviour {
     private const string LOG_TAG = "BonusGenerator - ";
 
 
-    const int MAXITEMS = 5; // Maximum number of items in the scene
+    const int MAXITEMS = 3; // Maximum number of items in the scene
     private int bonusCounter; // Current number of items in the scene
     public GameObject field; // The field of the scene
     Bounds fieldBounds; // Bounds of the fields
@@ -20,6 +20,7 @@ public class BonusGenerator : MonoBehaviour {
         fieldBounds = field.GetComponent<Renderer>().bounds;
         // take the size of one items
         bonusSize = bonusPrefab.GetComponent<Renderer>().bounds.size;
+        Debug.Log(fieldBounds);
     }
 	
 	// Update is called once per frame
@@ -30,7 +31,7 @@ public class BonusGenerator : MonoBehaviour {
             float y = fieldBounds.min.y + bonusSize.y;
             float z = (fieldBounds.min.z + fieldBounds.max.z )/ 2; //we put the bonus in the middle of the field
             Vector3 bonusPosition = new Vector3(x, y, z);
-            Debug.Log(LOG_TAG + "Creation bonus  (" + x + ", " + y + " , " + z + ")"); 
+           // Debug.Log(LOG_TAG + "Creation bonus  (" + x + ", " + y + " , " + z + ")"); 
             Instantiate(bonusPrefab, bonusPosition, Quaternion.identity);
             bonusCounter++;
         }
