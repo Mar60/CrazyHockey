@@ -58,7 +58,7 @@ public class Control : MonoBehaviour {
     
     void startforce()
     {
-        rb.AddForce(Vector3.back * speed);
+        rb.AddForce(Vector3.back * 500);
     }
     public float getTimer()
     {
