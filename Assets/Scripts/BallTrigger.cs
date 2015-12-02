@@ -10,13 +10,13 @@ public class BallTrigger : MonoBehaviour {
 
     private const string PLAYER_TAG = "Player";
     private const string BONUS_SHIELD_TAG = "BonusShield";
-/*
+
     private const string BONUS_MAGNET_TAG = "BonusMagnet";
     private bool magnetEnable;
     private GameObject magnetLeft;
     private GameObject magnetRight;
     int rand;
-*/
+
 	private const string BONUS_TERRAIN_TAG = "BonusTerrain";
 	private const string BONUS_PROJECTILE_TAG = "BonusProjectile";
 	private const string BONUS_BALL_TRAP_TAG = "BonusBallTrap";

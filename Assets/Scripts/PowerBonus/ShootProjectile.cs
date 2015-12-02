@@ -3,7 +3,7 @@ using System.Collections;
 
 public class ShootProjectile : MonoBehaviour {
 	public Rigidbody projectileBlurring;
-	public int speed = 20;
+	public int speed = 70;
 	public GameObject startPoint;
 	// Use this for initialization
 	void Start () {

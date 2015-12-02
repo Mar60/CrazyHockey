@@ -19,6 +19,8 @@ public class BonusGenerator : MonoBehaviour {
 	public GameObject bonusMountainPrefab; // the bonus mountain prefab
 	public GameObject bonusProjectilePrefab; // the bonus projectile prefab
 	public GameObject bonusBallTrapPrefab; // the bonus projectile prefab
+	public GameObject bonusMagnetPrefab; // the bonus magnet prefab
+
 
 
 	private Vector3 bonusSize; // The size of the bonus
@@ -28,23 +30,15 @@ public class BonusGenerator : MonoBehaviour {
         bonusCounter = 0;
         // bounds of the field
         fieldBounds = field.GetComponent<Renderer>().bounds;
-        // take the size of one items
-        bonusSize = bonusPrefab.GetComponent<Renderer>().bounds.size;
-        Debug.Log(fieldBounds);
+
     }
 	
 	// Update is called once per frame
 	void Update () {
         if (bonusCounter < MAXITEMS)
         {
-            float x = Random.Range(fieldBounds.min.x, fieldBounds.max.x);
-            float y = fieldBounds.min.y + bonusSize.y;
-            float z = (fieldBounds.min.z + fieldBounds.max.z )/ 2; //we put the bonus in the middle of the field
-            Vector3 bonusPosition = new Vector3(x, y, z);
-           // Debug.Log(LOG_TAG + "Creation bonus  (" + x + ", " + y + " , " + z + ")"); 
-            Instantiate(bonusPrefab, bonusPosition, Quaternion.identity);
-            bonusCounter++;
-			int choiceBonus = Random.Range(1,5);
+
+			int choiceBonus = Random.Range(1,6);
 			switch(choiceBonus){
 				case 1 ://Shield bonus
 					Debug.Log(LOG_TAG + "Creation shield bonus "); 
@@ -61,6 +55,10 @@ public class BonusGenerator : MonoBehaviour {
 				case 4 ://ball trap bonus
 					Debug.Log(LOG_TAG + "Creation ball trap bonus "); 
 					createBonusItem(bonusBallTrapPrefab, bonusBallTrapPrefab.GetComponent<Renderer>().bounds.size);
+					break;
+				case 5 ://magnet bonus
+					Debug.Log(LOG_TAG + "Creation magnet bonus "); 
+					createBonusItem(bonusMagnetPrefab, bonusBallTrapPrefab.GetComponent<Renderer>().bounds.size);
 					break;
 				default :
 					Debug.Log(LOG_TAG + "Creation none of them bonus "); 
