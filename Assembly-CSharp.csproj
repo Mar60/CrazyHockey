@@ -48,29 +48,18 @@
      <Compile Include="Assets\Scripts\BallTrigger.cs" />
      <Compile Include="Assets\Scripts\BonusGenerator.cs" />
      <Compile Include="Assets\Scripts\Control.cs" />
-<<<<<<< HEAD
-     <Compile Include="Assets\Scripts\FieldChangeController.cs" />
-     <Compile Include="Assets\Scripts\GoalScript.cs" />
-     <Compile Include="Assets\Scripts\MagnetManager.cs" />
-     <Compile Include="Assets\Scripts\RaiseLowerTerrain.cs" />
-     <Compile Include="Assets\Scripts\RayCasting.cs" />
-     <Compile Include="Assets\Scripts\ScoreScript.cs" />
-     <Compile Include="Assets\Scripts\ShieldController.cs" />
-     <Compile Include="Assets\Scripts\TimerUI.cs" />
-     <Compile Include="Assets\Scripts\menu.cs" />
-     <Compile Include="Assets\Scripts\slowPower.cs" />
-     <Compile Include="Assets\Scripts\throwing.cs" />
-=======
      <Compile Include="Assets\Scripts\GUI\GoalScript.cs" />
      <Compile Include="Assets\Scripts\GUI\ScoreScript.cs" />
      <Compile Include="Assets\Scripts\GUI\TimerUI.cs" />
      <Compile Include="Assets\Scripts\GUI\menu.cs" />
+     <Compile Include="Assets\Scripts\MagnetManager.cs" />
      <Compile Include="Assets\Scripts\PowerBonus\BonusPlayerManager.cs" />
      <Compile Include="Assets\Scripts\PowerBonus\RaiseLowerTerrain.cs" />
      <Compile Include="Assets\Scripts\PowerBonus\ShieldController.cs" />
      <Compile Include="Assets\Scripts\PowerBonus\ShootProjectile.cs" />
      <Compile Include="Assets\Scripts\RayCasting.cs" />
->>>>>>> origin/master
+     <Compile Include="Assets\Scripts\slowPower.cs" />
+     <Compile Include="Assets\Scripts\throwing.cs" />
      <Compile Include="Assets\SixenseInput\DemoScenes\Scripts\SixenseHand.cs" />
      <Compile Include="Assets\SixenseInput\DemoScenes\Scripts\SixenseHandsController.cs" />
      <Compile Include="Assets\SixenseInput\DemoScenes\Scripts\SixenseInputTest.cs" />

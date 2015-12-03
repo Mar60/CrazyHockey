@@ -29,7 +29,7 @@ public class BonusGenerator : MonoBehaviour {
         // bounds of the field
         fieldBounds = field.GetComponent<Renderer>().bounds;
         // take the size of one items
-        bonusSize = bonusPrefab.GetComponent<Renderer>().bounds.size;
+        //bonusSize = bonusPrefab.GetComponent<Renderer>().bounds.size;
         Debug.Log(fieldBounds);
     }
 	
@@ -42,7 +42,7 @@ public class BonusGenerator : MonoBehaviour {
             float z = (fieldBounds.min.z + fieldBounds.max.z )/ 2; //we put the bonus in the middle of the field
             Vector3 bonusPosition = new Vector3(x, y, z);
            // Debug.Log(LOG_TAG + "Creation bonus  (" + x + ", " + y + " , " + z + ")"); 
-            Instantiate(bonusPrefab, bonusPosition, Quaternion.identity);
+            //Instantiate(bonusPrefab, bonusPosition, Quaternion.identity);
             bonusCounter++;
 			int choiceBonus = Random.Range(1,5);
 			switch(choiceBonus){

@@ -28,7 +28,7 @@ public class MagnetManager : MonoBehaviour {
                 if (startTime + 5.0f < Time.time)
                 {
                 GetComponent<Renderer>().enabled = false;
-                ball.GetComponent<BallTrigger>().setMagnetEnable();
+                //ball.GetComponent<BallTrigger>().setMagnetEnable();
                 resetTimer = true;
             }
             foreach (GameObject player in players)
