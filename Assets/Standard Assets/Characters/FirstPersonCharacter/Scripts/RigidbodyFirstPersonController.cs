@@ -2,7 +2,6 @@ using System;
 using UnityEngine;
 using UnityStandardAssets.CrossPlatformInput;
 
-
 namespace UnityStandardAssets.Characters.FirstPerson
 {
     [RequireComponent(typeof (Rigidbody))]
@@ -87,7 +86,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
         private float m_YRotation;
         private Vector3 m_GroundContactNormal;
         private bool m_Jump, m_PreviouslyGrounded, m_Jumping, m_IsGrounded;
-        private SixenseInput.Controller controllerRight;
+
 
         public Vector3 Velocity
         {
@@ -122,7 +121,6 @@ namespace UnityStandardAssets.Characters.FirstPerson
             m_RigidBody = GetComponent<Rigidbody>();
             m_Capsule = GetComponent<CapsuleCollider>();
             mouseLook.Init (transform, cam.transform);
-            controllerRight = SixenseInput.GetController(SixenseHands.LEFT);
         }
 
 
@@ -147,7 +145,6 @@ namespace UnityStandardAssets.Characters.FirstPerson
                 // always move along the camera forward as it is the direction that it being aimed at
                 Vector3 desiredMove = cam.transform.forward*input.y + cam.transform.right*input.x;
                 desiredMove = Vector3.ProjectOnPlane(desiredMove, m_GroundContactNormal).normalized;
-               // Debug.Log(input.x);
 
                 desiredMove.x = desiredMove.x*movementSettings.CurrentTargetSpeed;
                 desiredMove.z = desiredMove.z*movementSettings.CurrentTargetSpeed;
@@ -212,13 +209,11 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
         private Vector2 GetInput()
         {
-
+            
             Vector2 input = new Vector2
-            {
-                x = CrossPlatformInputManager.GetAxis("Horizontal"),
-                y = CrossPlatformInputManager.GetAxis("Vertical")
-                //x = controllerRight.JoystickX,
-                //y = controllerRight.JoystickY
+                {
+                    x = CrossPlatformInputManager.GetAxis("Horizontal"),
+                    y = CrossPlatformInputManager.GetAxis("Vertical")
                 };
 			movementSettings.UpdateDesiredTargetSpeed(input);
             return input;

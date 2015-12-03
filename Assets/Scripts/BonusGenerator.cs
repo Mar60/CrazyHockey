@@ -19,6 +19,8 @@ public class BonusGenerator : MonoBehaviour {
 	public GameObject bonusMountainPrefab; // the bonus mountain prefab
 	public GameObject bonusProjectilePrefab; // the bonus projectile prefab
 	public GameObject bonusBallTrapPrefab; // the bonus projectile prefab
+	public GameObject bonusMagnetPrefab; // the bonus magnet prefab
+
 
 
 	private Vector3 bonusSize; // The size of the bonus
@@ -28,9 +30,13 @@ public class BonusGenerator : MonoBehaviour {
         bonusCounter = 0;
         // bounds of the field
         fieldBounds = field.GetComponent<Renderer>().bounds;
+<<<<<<< HEAD
         // take the size of one items
         //bonusSize = bonusPrefab.GetComponent<Renderer>().bounds.size;
         Debug.Log(fieldBounds);
+=======
+
+>>>>>>> origin/master
     }
 	
 	// Update is called once per frame
@@ -61,6 +67,10 @@ public class BonusGenerator : MonoBehaviour {
 				case 4 ://ball trap bonus
 					Debug.Log(LOG_TAG + "Creation ball trap bonus "); 
 					createBonusItem(bonusBallTrapPrefab, bonusBallTrapPrefab.GetComponent<Renderer>().bounds.size);
+					break;
+				case 5 ://magnet bonus
+					Debug.Log(LOG_TAG + "Creation magnet bonus "); 
+					createBonusItem(bonusMagnetPrefab, bonusBallTrapPrefab.GetComponent<Renderer>().bounds.size);
 					break;
 				default :
 					Debug.Log(LOG_TAG + "Creation none of them bonus "); 
