@@ -114,5 +114,18 @@ public class SixenseHand : MonoBehaviour
 	{
 		get { return m_initialPosition; }
 	}
+
+    void OnTriggerEnter(Collider other)
+    {
+        Vector3 forceVector;
+        forceVector = other.gameObject.GetComponent<Renderer>().bounds.center - GetComponent<Transform>().position;
+        Debug.Log(forceVector);
+        other.gameObject.GetComponent<Rigidbody>().AddForce(forceVector*500);
+        /* if(m_controller.GetButtonDown(SixenseButtons.ONE))
+         {
+             ballCenter = other.gameObject.GetComponent<Renderer>().bounds.center;
+             other.gameObject.GetComponent<>().position.
+         }*/
+    }
 }
 
