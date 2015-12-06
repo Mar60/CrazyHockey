@@ -26,7 +26,7 @@ public class BallTrigger : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        lastPlayerTouched = null;
+        lastPlayerTouched = GameObject.Find("Player2");
        /* magnetEnable = true;
         magnetLeft = GameObject.Find("MagnetLeft");
         magnetRight = GameObject.Find("MagnetRight");*/

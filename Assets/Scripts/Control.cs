@@ -10,14 +10,20 @@ public class Control : MonoBehaviour {
     float currentTimer;
     private GameObject timerU;
     private Vector3 initialPosition;
+    private bool gameStarted;
+    private Vector3 force;
 	
 	void Start()  
 	{  
 		rb = GetComponent<Rigidbody>();
         initialPosition = GetComponent<Transform>().position;
-	} 
-	void Update()  
+        force = new Vector3(1,0,1);
+        Debug.Log(Vector3.left);
+
+    }
+    void Update()  
 	{  
+      
 		KeyboardMovements();
         if (count)
         {
@@ -29,11 +35,19 @@ public class Control : MonoBehaviour {
             currentTimer = 5.0f - (Time.time - startTime);
             if (startTime + 5.0f < Time.time)
             {
-                startforce();
+                gameStarted = true;
                 count = false;
             }
         }
     } 
+
+    void FixedUpdate()
+    {
+        if (gameStarted)
+        {
+            //addforce();
+        }
+    }
 	
 	void KeyboardMovements()  
 	{  
@@ -55,10 +69,16 @@ public class Control : MonoBehaviour {
 			rb.AddForce(Vector3.back * speed);  
 		}  
 	}  
-    
-    void startforce()
+
+    public void setForce(Vector3 forceToSet)
     {
-        rb.AddForce(Vector3.back * 500);
+        force = forceToSet;
+    }
+    
+    private void addforce()
+    {
+        rb.AddForce(force * 60);
+        Debug.Log(force);
     }
     public float getTimer()
     {
@@ -70,8 +90,20 @@ public class Control : MonoBehaviour {
     }
     public void resetTimerBall()
     {
+        gameStarted = false;
         count = true;
         resetTimer = true;
         GetComponent<Transform>().position = initialPosition;
+        GetComponent<Rigidbody>().velocity = Vector3.zero;
+    }
+
+    void OnCollisionEnter(Collision other)
+    {
+        Debug.Log("FoundCollision");
+        if (other.gameObject.layer == 10)
+        {
+            
+            force = Vector3.Reflect(force, other.contacts[0].normal);
+        }
     }
 } 

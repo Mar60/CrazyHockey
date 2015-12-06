@@ -16,7 +16,9 @@ public class SixenseHand : MonoBehaviour
 	float 		m_fLastTriggerVal;
 	Vector3		m_initialPosition;
 	Quaternion 	m_initialRotation;
-
+    private float initialHandPosition;
+    private int cpt=0;
+    private bool buttonDown = false;
 
 	protected void Start() 
 	{
@@ -38,11 +40,29 @@ public class SixenseHand : MonoBehaviour
 		{
 			UpdateHandAnimation();
 		}
-	}
-	
-	
-	// Updates the animated object from controller input.
-	protected void UpdateHandAnimation()
+
+        if (m_hand == SixenseHands.RIGHT ? m_controller.GetButton(SixenseButtons.TWO) : m_controller.GetButton(SixenseButtons.ONE))
+        {
+            if (!buttonDown)
+            {
+                buttonDown = true;
+                initialHandPosition = m_controller.Position.z;
+            }
+            cpt++;
+            if(cpt == 60)
+            {
+                Debug.Log("1s après : " + m_controller.Position.z);
+                Debug.Log("initialement : " + initialHandPosition);
+                buttonDown = false;
+                cpt = 0;
+            }
+
+        }
+    }
+
+
+    // Updates the animated object from controller input.
+    protected void UpdateHandAnimation()
 	{
 		// Point
 		if ( m_hand == SixenseHands.RIGHT ? m_controller.GetButton(SixenseButtons.ONE) : m_controller.GetButton(SixenseButtons.TWO) )
@@ -117,15 +137,19 @@ public class SixenseHand : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
+        Debug.Log("yo");
         Vector3 forceVector;
         forceVector = other.gameObject.GetComponent<Renderer>().bounds.center - GetComponent<Transform>().position;
-        Debug.Log(forceVector);
-        other.gameObject.GetComponent<Rigidbody>().AddForce(forceVector*500);
-        /* if(m_controller.GetButtonDown(SixenseButtons.ONE))
-         {
-             ballCenter = other.gameObject.GetComponent<Renderer>().bounds.center;
-             other.gameObject.GetComponent<>().position.
-         }*/
+        //Debug.Log(forceVector);
+        if (other.gameObject.name == "Ball")
+        {
+            other.gameObject.GetComponent<Rigidbody>().AddForce(forceVector * 500);
+            if (m_hand == SixenseHands.RIGHT ? m_controller.GetButton(SixenseButtons.TWO) : m_controller.GetButton(SixenseButtons.ONE))
+            {
+               // Debug.Log("yo");
+         }
+        }
+
     }
 }
 

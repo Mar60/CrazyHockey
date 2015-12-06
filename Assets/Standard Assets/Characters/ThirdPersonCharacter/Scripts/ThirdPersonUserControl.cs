@@ -12,10 +12,12 @@ namespace UnityStandardAssets.Characters.ThirdPerson
         private Vector3 m_CamForward;             // The current forward direction of the camera
         private Vector3 m_Move;
         private bool m_Jump;                      // the world-relative desired move direction, calculated from the camForward and user input.
+        private SixenseHands Sixense;
+        private SixenseInput.Controller m_controller;
 
-        
         private void Start()
         {
+            m_controller = SixenseInput.GetController(SixenseHands.LEFT);
             // get the transform of the main camera
             if (Camera.main != null)
             {
@@ -35,6 +37,7 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 
         private void Update()
         {
+            m_controller = SixenseInput.GetController(SixenseHands.LEFT);
             if (!m_Jump)
             {
                 m_Jump = CrossPlatformInputManager.GetButtonDown("Jump");
@@ -46,8 +49,10 @@ namespace UnityStandardAssets.Characters.ThirdPerson
         private void FixedUpdate()
         {
             // read inputs
-            float h = CrossPlatformInputManager.GetAxis("Horizontal");
-            float v = CrossPlatformInputManager.GetAxis("Vertical");
+           // float h = CrossPlatformInputManager.GetAxis("Horizontal");
+           // float v = CrossPlatformInputManager.GetAxis("Vertical");
+            float h = m_controller.JoystickX;
+            float v = m_controller.JoystickY;
             bool crouch = Input.GetKey(KeyCode.C);
 
             // calculate move direction to pass to character

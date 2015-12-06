@@ -30,13 +30,9 @@ public class BonusGenerator : MonoBehaviour {
         bonusCounter = 0;
         // bounds of the field
         fieldBounds = field.GetComponent<Renderer>().bounds;
-<<<<<<< HEAD
         // take the size of one items
         //bonusSize = bonusPrefab.GetComponent<Renderer>().bounds.size;
         Debug.Log(fieldBounds);
-=======
-
->>>>>>> origin/master
     }
 	
 	// Update is called once per frame
@@ -49,7 +45,6 @@ public class BonusGenerator : MonoBehaviour {
             Vector3 bonusPosition = new Vector3(x, y, z);
            // Debug.Log(LOG_TAG + "Creation bonus  (" + x + ", " + y + " , " + z + ")"); 
             //Instantiate(bonusPrefab, bonusPosition, Quaternion.identity);
-            bonusCounter++;
 			int choiceBonus = Random.Range(1,5);
 			switch(choiceBonus){
 				case 1 ://Shield bonus
