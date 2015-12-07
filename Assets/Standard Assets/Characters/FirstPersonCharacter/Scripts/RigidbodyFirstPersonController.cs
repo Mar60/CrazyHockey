@@ -86,6 +86,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
         private float m_YRotation;
         private Vector3 m_GroundContactNormal;
         private bool m_Jump, m_PreviouslyGrounded, m_Jumping, m_IsGrounded;
+        private SixenseHands Sixense;
+        private SixenseInput.Controller m_controller;
 
 
         public Vector3 Velocity
@@ -121,13 +123,16 @@ namespace UnityStandardAssets.Characters.FirstPerson
             m_RigidBody = GetComponent<Rigidbody>();
             m_Capsule = GetComponent<CapsuleCollider>();
             mouseLook.Init (transform, cam.transform);
+            m_controller = SixenseInput.GetController(SixenseHands.LEFT);
+            Debug.Log(m_controller);
+            
         }
 
 
         private void Update()
         {
             RotateView();
-
+            m_controller = SixenseInput.GetController(SixenseHands.LEFT);
             if (CrossPlatformInputManager.GetButtonDown("Jump") && !m_Jump)
             {
                 m_Jump = true;
@@ -209,11 +214,13 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
         private Vector2 GetInput()
         {
-            
+
             Vector2 input = new Vector2
-                {
-                    x = CrossPlatformInputManager.GetAxis("Horizontal"),
-                    y = CrossPlatformInputManager.GetAxis("Vertical")
+            {
+                 x = CrossPlatformInputManager.GetAxis("Horizontal"),
+                y = CrossPlatformInputManager.GetAxis("Vertical")
+                //x = m_controller.JoystickX,
+                //y=m_controller.JoystickY
                 };
 			movementSettings.UpdateDesiredTargetSpeed(input);
             return input;

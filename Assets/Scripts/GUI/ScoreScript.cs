@@ -9,8 +9,8 @@ public class ScoreScript : MonoBehaviour {
     Text text;
 	// Use this for initialization
 	void Start () {
-        player1 = GameObject.Find("Player1");
-        player2 = GameObject.Find("Player2");
+        player1 = GameObject.Find("Player1_score");
+        player2 = GameObject.Find("Player2_score");
         text = GetComponent<Text>();
     }
 	

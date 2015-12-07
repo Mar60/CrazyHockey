@@ -48,8 +48,9 @@ public class BonusGenerator : MonoBehaviour {
             Vector3 bonusPosition = new Vector3(x, y, z);
            // Debug.Log(LOG_TAG + "Creation bonus  (" + x + ", " + y + " , " + z + ")"); 
             //Instantiate(bonusPrefab, bonusPosition, Quaternion.identity);
-            bonusCounter++;
+
 			int choiceBonus = Random.Range(1,6);
+
 			switch(choiceBonus){
 				case 1 ://Shield bonus
 					Debug.Log(LOG_TAG + "Creation shield bonus "); 
