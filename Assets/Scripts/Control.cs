@@ -18,7 +18,7 @@ public class Control : MonoBehaviour {
 	} 
 	void Update()  
 	{  
-		KeyboardMovements();
+		//KeyboardMovements();
         if (count)
         {
             if (resetTimer)

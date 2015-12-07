@@ -53,6 +53,7 @@
      <Compile Include="Assets\Scripts\GUI\TimerUI.cs" />
      <Compile Include="Assets\Scripts\GUI\menu.cs" />
      <Compile Include="Assets\Scripts\MagnetManager.cs" />
+     <Compile Include="Assets\Scripts\PowerBonus\BlurTrigger.cs" />
      <Compile Include="Assets\Scripts\PowerBonus\BonusPlayerManager.cs" />
      <Compile Include="Assets\Scripts\PowerBonus\RaiseLowerTerrain.cs" />
      <Compile Include="Assets\Scripts\PowerBonus\ShieldController.cs" />

@@ -7,7 +7,7 @@ public class ShootProjectile : MonoBehaviour {
 	public GameObject startPoint;
 	// Use this for initialization
 	void Start () {
-	
+		startPoint = this.gameObject;
 	}
 	
 	// Update is called once per frame
