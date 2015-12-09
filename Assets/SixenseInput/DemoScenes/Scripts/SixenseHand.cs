@@ -48,15 +48,6 @@ public class SixenseHand : MonoBehaviour
                 buttonDown = true;
                 initialHandPosition = m_controller.Position.z;
             }
-            cpt++;
-            if(cpt == 60)
-            {
-                Debug.Log("1s après : " + m_controller.Position.z);
-                Debug.Log("initialement : " + initialHandPosition);
-                buttonDown = false;
-                cpt = 0;
-            }
-
         }
     }
 
@@ -137,16 +128,24 @@ public class SixenseHand : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        Debug.Log("yo");
         Vector3 forceVector;
         forceVector = other.gameObject.GetComponent<Renderer>().bounds.center - GetComponent<Transform>().position;
-        //Debug.Log(forceVector);
         if (other.gameObject.name == "Ball")
         {
-            other.gameObject.GetComponent<Rigidbody>().AddForce(forceVector * 500);
+            if (other.gameObject.GetComponent<Renderer>().material.color == Color.red)
+            {
+                GetComponentInParent<BonusPlayerManager>().setBlur();
+                other.gameObject.GetComponent<Renderer>().material.color = Color.white;
+            }
+
+            //other.gameObject.GetComponent<Rigidbody>().AddForce(forceVector * 500);
             if (m_hand == SixenseHands.RIGHT ? m_controller.GetButton(SixenseButtons.TWO) : m_controller.GetButton(SixenseButtons.ONE))
             {
-               // Debug.Log("yo");
+                 
+                if((m_controller.Position.z - initialHandPosition) > 1)
+                {
+                    other.gameObject.GetComponent<Control>().setForce(forceVector);
+                }
          }
         }
 
