@@ -4,7 +4,7 @@ using System.Collections;
 public class RaiseLowerTerrain : MonoBehaviour
 {
 	private const string LOG_TAG = "RaiseLowerTerrain - ";
-	public bool TestWithMouse = true;
+	public bool TestWithMouse = false;
 	public Terrain myTerrain;
 	public int SmoothArea;
 	private int xResolution;

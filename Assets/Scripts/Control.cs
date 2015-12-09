@@ -100,10 +100,19 @@ public class Control : MonoBehaviour {
     void OnCollisionEnter(Collision other)
     {
         Debug.Log("FoundCollision");
+        Debug.Log(other.gameObject);
         if (other.gameObject.layer == 10)
         {
-            
-            force = Vector3.Reflect(force, other.contacts[0].normal);
+               force = Vector3.Reflect(force, other.contacts[0].normal);
+            Debug.Log(other.gameObject);
+            if (other.gameObject.name == "Shield")
+            {
+                Debug.Log("shield");
+            }
+        }
+        if(GetComponent<Renderer>().material.color == Color.red)
+        {
+            GetComponent<Renderer>().material.color = Color.white;
         }
     }
 } 
