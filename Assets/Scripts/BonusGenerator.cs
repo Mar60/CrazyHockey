@@ -6,12 +6,14 @@ public class BonusGenerator : MonoBehaviour {
 
 
 
-    public const int MAXITEMS = 3; // Maximum number of items in the scene
+    public const int MAXITEMS = 10; // Maximum number of items in the scene
     private int bonusCounter; // Current number of items in the scene
     public GameObject field; // The field of the scene
     Bounds fieldBounds; // Bounds of the fields
 
 	private float INCERTITUDE_SIZE_OBJECT =2f;
+	private float INCERTITUDE_MIDDLE_FIELD = 5f;
+
 
 	private float SIZE_WALL =5f;
 
@@ -33,6 +35,7 @@ public class BonusGenerator : MonoBehaviour {
         // take the size of one items
         //bonusSize = bonusPrefab.GetComponent<Renderer>().bounds.size;
         Debug.Log(fieldBounds);
+
     }
 	
 	// Update is called once per frame
@@ -45,7 +48,9 @@ public class BonusGenerator : MonoBehaviour {
             Vector3 bonusPosition = new Vector3(x, y, z);
            // Debug.Log(LOG_TAG + "Creation bonus  (" + x + ", " + y + " , " + z + ")"); 
             //Instantiate(bonusPrefab, bonusPosition, Quaternion.identity);
-			int choiceBonus = Random.Range(1,5);
+
+			int choiceBonus = Random.Range(1,6);
+
 			switch(choiceBonus){
 				case 1 ://Shield bonus
 					Debug.Log(LOG_TAG + "Creation shield bonus "); 
@@ -79,7 +84,7 @@ public class BonusGenerator : MonoBehaviour {
 		// take the size of one items
 		float x = Random.Range(fieldBounds.min.x+SIZE_WALL, fieldBounds.max.x-SIZE_WALL);
 		float y = fieldBounds.min.y + bonusSizeUsed.y+ INCERTITUDE_SIZE_OBJECT;
-		float z = (fieldBounds.min.z + fieldBounds.max.z )/ 2; //we put the bonus in the middle of the field
+		float z = ((fieldBounds.min.z + fieldBounds.max.z )/ 2) + INCERTITUDE_MIDDLE_FIELD; //we put the bonus in the middle of the field
 		Vector3 bonusPosition = new Vector3(x, y, z);
 		Debug.Log(LOG_TAG + "Creation bonus  (" + x + ", " + y + " , " + z + ")"); 
 

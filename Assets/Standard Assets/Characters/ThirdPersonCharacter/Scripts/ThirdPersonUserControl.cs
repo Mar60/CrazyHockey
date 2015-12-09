@@ -40,7 +40,7 @@ namespace UnityStandardAssets.Characters.ThirdPerson
             m_controller = SixenseInput.GetController(SixenseHands.LEFT);
             if (!m_Jump)
             {
-                m_Jump = CrossPlatformInputManager.GetButtonDown("Jump");
+                //m_Jump = CrossPlatformInputManager.GetButtonDown("Jump");
             }
         }
 

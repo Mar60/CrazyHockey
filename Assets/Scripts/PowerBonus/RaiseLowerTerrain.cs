@@ -71,7 +71,7 @@ public class RaiseLowerTerrain : MonoBehaviour
 		// raises and right mouse button lowers terrain.
 		timerRun();
 
-		if (TestWithMouse == true) 
+		/*if (TestWithMouse == true) 
 		{
 			if (Input.GetMouseButtonDown (0)) 
 			{
@@ -99,10 +99,10 @@ public class RaiseLowerTerrain : MonoBehaviour
 					raiselowerTerrainArea (hit.point, 10, 10, SmoothArea, -0.01f);
 					//raiselowerTerrainPoint(hit.point,-0.01f);
 					// area middle point x and z, area size, texture ID from terrain textures
-					TextureDeformation (hit.point, 10 * 2f, 0);
+					//TextureDeformation (hit.point, 10 * 2f, 0);
 				}
 			}
-		}
+		}*/
 	}
 
 	/*private void riseHeightSlowly(){
@@ -124,6 +124,19 @@ public class RaiseLowerTerrain : MonoBehaviour
 			}
 		}
 	}*/
+
+
+	public void riseController(Vector3 hitPoint){
+
+		if(oneMoreActivated(hitPoint)){
+				
+				// area middle point x and z, area width, area height, smoothing distance, area height adjust
+			raiselowerTerrainArea (hitPoint, LENX_TO_RISE_AREA, LENZ_TO_RISE_AREA, SmoothArea, INCDEC_TO_RISE_AREA); 
+				//raiselowerTerrainPoint(hit.point,0.01f);
+				// area middle point x and z, area size, texture ID from terrain textures
+				//TextureDeformation (hit.point, CRATER_SIZE_IN_METERS, DeformationTextureNum);
+		}
+	}
 
 
 	private bool oneMoreActivated(Vector3 newPic){
