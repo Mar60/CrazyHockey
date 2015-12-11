@@ -41,13 +41,9 @@ public class SixenseHand : MonoBehaviour
 			UpdateHandAnimation();
 		}
 
-        if (m_hand == SixenseHands.RIGHT ? m_controller.GetButton(SixenseButtons.TWO) : m_controller.GetButton(SixenseButtons.ONE))
+        if (m_hand == SixenseHands.RIGHT ? m_controller.GetButtonDown(SixenseButtons.TWO) : m_controller.GetButtonDown(SixenseButtons.ONE))
         {
-            if (!buttonDown)
-            {
-                buttonDown = true;
-                initialHandPosition = m_controller.Position.z;
-            }
+            initialHandPosition = m_controller.Position.z;
         }
     }
 
@@ -132,6 +128,7 @@ public class SixenseHand : MonoBehaviour
         forceVector = other.gameObject.GetComponent<Renderer>().bounds.center - GetComponent<Transform>().position;
         if (other.gameObject.name == "Ball")
         {
+            Debug.Log("triggered");
             if (other.gameObject.GetComponent<Renderer>().material.color == Color.red)
             {
                 GetComponentInParent<BonusPlayerManager>().setBlur();
@@ -142,9 +139,12 @@ public class SixenseHand : MonoBehaviour
             if (m_hand == SixenseHands.RIGHT ? m_controller.GetButton(SixenseButtons.TWO) : m_controller.GetButton(SixenseButtons.ONE))
             {
                  
-                if((m_controller.Position.z - initialHandPosition) > 1)
+                if((m_controller.Position.z - initialHandPosition) > 0.1)
                 {
+                    Debug.Log("force set");
+                    
                     other.gameObject.GetComponent<Control>().setForce(forceVector);
+                    other.gameObject.GetComponent<Control>().addforce();
                 }
          }
         }

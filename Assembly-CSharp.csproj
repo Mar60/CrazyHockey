@@ -59,6 +59,7 @@
      <Compile Include="Assets\Scripts\PowerBonus\RaiseLowerTerrain.cs" />
      <Compile Include="Assets\Scripts\PowerBonus\ShieldController.cs" />
      <Compile Include="Assets\Scripts\PowerBonus\ShootProjectile.cs" />
+     <Compile Include="Assets\Scripts\PowerBonus\SlowTrigger.cs" />
      <Compile Include="Assets\Scripts\RayCasting.cs" />
      <Compile Include="Assets\Scripts\slowPower.cs" />
      <Compile Include="Assets\Scripts\throwing.cs" />

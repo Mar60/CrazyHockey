@@ -23,7 +23,7 @@ public class Control : MonoBehaviour {
     }
     void Update()  
 	{  
-		//KeyboardMovements();
+		KeyboardMovements();
 
         if (count)
         {
@@ -37,6 +37,7 @@ public class Control : MonoBehaviour {
             {
                 gameStarted = true;
                 count = false;
+                addforce();
             }
         }
     } 
@@ -75,10 +76,10 @@ public class Control : MonoBehaviour {
         force = forceToSet;
     }
     
-    private void addforce()
+    public void addforce()
     {
-        rb.AddForce(force * 60);
-        Debug.Log(force);
+        rb.AddForce(force * 1000);
+       // Debug.Log(force);
     }
     public float getTimer()
     {

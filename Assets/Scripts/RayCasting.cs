@@ -19,6 +19,7 @@ public class RayCasting : MonoBehaviour
     public const int RAYCASTLENGTH = 1000;   // Longueur du rayon issu de la caméra
 	public GameObject pointerFinger;
 	public GameObject pointStart;
+	private Vector3 NULL_VECTOR3 = new Vector3(200000,200000,200000);
 
     //public CursorMode cursorMode = CursorMode.Auto;
     public Vector2 hotSpot = new Vector2(16, 16);   // Offset du centre du curseur
@@ -51,4 +52,21 @@ public class RayCasting : MonoBehaviour
 
 
     }
+
+	public Vector3 sendRaycast(){
+		Ray ray = new Ray(pointStart.transform.position, pointerFinger.transform.position+ new Vector3(0f,0.2f,0f) - pointStart.transform.position);
+		Debug.DrawRay(ray.origin, ray.direction * RAYCASTLENGTH, Color.blue);
+
+		RaycastHit hit;
+		
+		//Ray ray = (Ray)pointerFinger.transform;
+		//Ray ray = Camera.main.ScreenPointToRay (Input.mousePosition);
+		//Ray ray = GetComponentInChildren<Camera>().ScreenPointToRay(Input.mousePosition);
+		
+		if (Physics.Raycast (ray, out hit)) 
+			return hit.point;
+		else
+			return NULL_VECTOR3;
+
+	}
 }

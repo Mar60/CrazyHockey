@@ -18,10 +18,15 @@ public class BonusPlayerManager : MonoBehaviour {
     private GameObject ball;
     private bool blurVision, resetTimer;
     private float startTime, currentTimer;
+	private Vector3 NULL_VECTOR3 = new Vector3(200000,200000,200000);
+	private Vector3 localPointTerrainRaycasting;
+
+
     // Use this for initialization
     void Start () {
         hand = GameObject.Find("Hand - Left");
         ball = GameObject.Find("Ball");
+		localPointTerrainRaycasting = NULL_VECTOR3;
 	}
 
     // Update is called once per frame
@@ -56,13 +61,31 @@ public class BonusPlayerManager : MonoBehaviour {
         }
         if (shieldPowerIsActive > 0 && /*Input.GetKeyDown("1")*/m_controller.GetButtonUp(SixenseButtons.ONE))
         {
-                if ((hand.GetComponent<Transform>().position.y - initialPosition) > 0.1)
-                {
-                    GetComponent<ShieldController>().riseShield();
-                shieldPowerIsActive--;
-                }
+	        if ((hand.GetComponent<Transform>().position.y - initialPosition) > 0.1)
+	        {
+	            GetComponent<ShieldController>().riseShield();
+	        	shieldPowerIsActive--;
+	        }
 
          }
+		if (terrainPowerIsActive > 0 && /*Input.GetKeyDown("2")*/m_controller.GetButtonUp(SixenseButtons.TWO))
+		{
+			if(localPointTerrainRaycasting.Equals(NULL_VECTOR3))
+				localPointTerrainRaycasting = GetComponent<RayCasting>().sendRaycast();
+			if ( !localPointTerrainRaycasting.Equals(NULL_VECTOR3) &&((hand.GetComponent<Transform>().position.y - initialPosition) > 0.1))
+			{
+				GetComponent<RaiseLowerTerrain>().riseController(localPointTerrainRaycasting);
+				terrainPowerIsActive--;
+				localPointTerrainRaycasting = NULL_VECTOR3;
+			}
+			
+		}
+		if (projectilePowerIsActive > 0 && /*Input.GetKeyDown("2")*/m_controller.GetButtonUp(SixenseButtons.FOUR))
+		{
+			GetComponent<ShootProjectile>().sendProjectile();
+			projectilePowerIsActive--;
+			
+		}
         if(m_controller.GetButtonDown(SixenseButtons.ONE))
         {
             initialPosition = hand.GetComponent<Transform>().position.y;

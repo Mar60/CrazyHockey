@@ -13,10 +13,16 @@ public class ShootProjectile : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-		if (Input.GetKeyDown ("f")) {
+		/*if (Input.GetKeyDown ("f")) {
 			Rigidbody clone = (Rigidbody)Instantiate(projectileBlurring, startPoint.GetComponent<Transform>().position, Quaternion.identity);
 			clone.velocity = transform.TransformDirection(new Vector3 (0, 0, speed));
 			Destroy(clone.gameObject, 3);
-		}
-	}			
+		}*/
+	}		
+
+	public void sendProjectile(){
+		Rigidbody clone = (Rigidbody)Instantiate(projectileBlurring, startPoint.GetComponent<Transform>().position, Quaternion.identity);
+		clone.velocity = transform.TransformDirection(new Vector3 (0, 0, speed));
+		Destroy(clone.gameObject, 3);
+	}
 }
