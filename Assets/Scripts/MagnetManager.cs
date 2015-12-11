@@ -8,6 +8,8 @@ public class MagnetManager : MonoBehaviour {
     private float startTime, currentTimer;
     private GameObject[] players;
     private GameObject ball;
+    Vector3 heading, direction;
+    float distance;
 	// Use this for initialization
 	void Start () {
         players = GameObject.FindGameObjectsWithTag("Player");
@@ -28,19 +30,18 @@ public class MagnetManager : MonoBehaviour {
                 if (startTime + 5.0f < Time.time)
                 {
                 GetComponent<Renderer>().enabled = false;
-                //ball.GetComponent<BallTrigger>().setMagnetEnable();
+                ball.GetComponent<BallTrigger>().setMagnetEnable();
                 resetTimer = true;
             }
+
             foreach (GameObject player in players)
             {
-                if(this.name == "MagnetLeft")
-                {
-                    player.GetComponent<Rigidbody>().AddForce(Vector3.left * 50);
-                }
-                else
-                {
-                    player.GetComponent<Rigidbody>().AddForce(Vector3.right * 50);
-                }
+                heading = GetComponent<Transform>().position - player.GetComponent<Transform>().position;
+                distance = heading.magnitude;
+                direction = heading / distance;
+                direction.y = 0;
+                direction.z = 0;
+                player.GetComponent<Rigidbody>().AddForce(direction * 50);
             }
         }
 	}
