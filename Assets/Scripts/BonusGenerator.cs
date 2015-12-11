@@ -6,7 +6,7 @@ public class BonusGenerator : MonoBehaviour {
 
 
 
-    public const int MAXITEMS = 10; // Maximum number of items in the scene
+    public const int MAXITEMS = 1; // Maximum number of items in the scene
     private int bonusCounter; // Current number of items in the scene
     public GameObject field; // The field of the scene
     Bounds fieldBounds; // Bounds of the fields
@@ -46,11 +46,11 @@ public class BonusGenerator : MonoBehaviour {
             float y = fieldBounds.min.y + bonusSize.y;
             float z = (fieldBounds.min.z + fieldBounds.max.z )/ 2; //we put the bonus in the middle of the field
             Vector3 bonusPosition = new Vector3(x, y, z);
-           // Debug.Log(LOG_TAG + "Creation bonus  (" + x + ", " + y + " , " + z + ")"); 
+            // Debug.Log(LOG_TAG + "Creation bonus  (" + x + ", " + y + " , " + z + ")"); 
             //Instantiate(bonusPrefab, bonusPosition, Quaternion.identity);
 
-			int choiceBonus = Random.Range(1,6);
-
+            //int choiceBonus = Random.Range(1,6);
+            int choiceBonus = 5;
 			switch(choiceBonus){
 				case 1 ://Shield bonus
 					Debug.Log(LOG_TAG + "Creation shield bonus "); 

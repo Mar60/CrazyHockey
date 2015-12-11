@@ -27,9 +27,9 @@ public class BallTrigger : MonoBehaviour {
     // Use this for initialization
     void Start () {
         lastPlayerTouched = GameObject.Find("Player2");
-       /* magnetEnable = true;
+        magnetEnable = true;
         magnetLeft = GameObject.Find("MagnetLeft");
-        magnetRight = GameObject.Find("MagnetRight");*/
+        magnetRight = GameObject.Find("MagnetRight");
 
     }
 
@@ -85,7 +85,7 @@ public class BallTrigger : MonoBehaviour {
             lastPlayerTouched = other.gameObject;
 
         }
-       /* if (other.gameObject.CompareTag(BONUS_MAGNET_TAG))
+        else if (other.gameObject.CompareTag(BONUS_MAGNET_TAG))
         {
             Debug.Log(LOG_TAG + "Destruction bonus shield");
             Destroy(other.gameObject);
@@ -107,15 +107,15 @@ public class BallTrigger : MonoBehaviour {
             }
 
 
-        }*/
+        }
 
 
     }
 
-   /* public void setMagnetEnable()
+    public void setMagnetEnable()
     {
         magnetEnable = true;
-    }*/
+    }
 	
 
 }
