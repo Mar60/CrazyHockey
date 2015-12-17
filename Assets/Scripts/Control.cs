@@ -37,7 +37,7 @@ public class Control : MonoBehaviour {
             {
                 gameStarted = true;
                 count = false;
-                addforce();
+                //addforce();
             }
         }
     } 
@@ -100,16 +100,11 @@ public class Control : MonoBehaviour {
 
     void OnCollisionEnter(Collision other)
     {
-        Debug.Log("FoundCollision");
         Debug.Log(other.gameObject);
-        if (other.gameObject.layer == 10)
+        if(other.gameObject.tag == "Player")
         {
-               force = Vector3.Reflect(force, other.contacts[0].normal);
-            Debug.Log(other.gameObject);
-            if (other.gameObject.name == "Shield")
-            {
-                Debug.Log("shield");
-            }
+            setForce(other.gameObject.GetComponent<Transform>().forward);
+            addforce();
         }
         if(GetComponent<Renderer>().material.color == Color.red)
         {

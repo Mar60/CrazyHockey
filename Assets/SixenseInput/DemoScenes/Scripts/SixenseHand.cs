@@ -44,6 +44,7 @@ public class SixenseHand : MonoBehaviour
         if (m_hand == SixenseHands.RIGHT ? m_controller.GetButtonDown(SixenseButtons.TWO) : m_controller.GetButtonDown(SixenseButtons.ONE))
         {
             initialHandPosition = m_controller.Position.z;
+            Debug.Log(initialHandPosition);
         }
     }
 
@@ -138,8 +139,8 @@ public class SixenseHand : MonoBehaviour
             //other.gameObject.GetComponent<Rigidbody>().AddForce(forceVector * 500);
             if (m_hand == SixenseHands.RIGHT ? m_controller.GetButton(SixenseButtons.TWO) : m_controller.GetButton(SixenseButtons.ONE))
             {
-                 
-                if((m_controller.Position.z - initialHandPosition) > 0.1)
+                Debug.Log(m_controller.Position.z);
+                if(m_controller.Position.z > 0 && initialHandPosition < -100)
                 {
                     Debug.Log("force set");
                     

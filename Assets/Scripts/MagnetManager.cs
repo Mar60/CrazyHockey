@@ -41,7 +41,7 @@ public class MagnetManager : MonoBehaviour {
                 direction = heading / distance;
                 direction.y = 0;
                 direction.z = 0;
-                player.GetComponent<Rigidbody>().AddForce(direction * 50);
+                player.GetComponent<Rigidbody>().AddForce(direction,ForceMode.VelocityChange);
             }
         }
 	}
