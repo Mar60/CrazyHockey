@@ -147,7 +147,14 @@ public class SixenseHand : MonoBehaviour
                     other.gameObject.GetComponent<Control>().setForce(forceVector);
                     other.gameObject.GetComponent<Control>().addforce();
                 }
-         }
+                else
+                {
+                    GetComponentInParent<BonusPlayerManager>().setBlur();
+
+                    other.gameObject.GetComponent<Control>().setForce(forceVector);
+                    other.gameObject.GetComponent<Control>().addforce();
+                }
+            }
         }
 
     }

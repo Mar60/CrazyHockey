@@ -26,7 +26,7 @@ public class RaiseLowerTerrain : MonoBehaviour
 	private const float CRATER_SIZE_IN_METERS = 10 * 2f;
 
 
-	private Vector3[] picPointPlayer = new Vector3[3];
+	private Vector3[] picPointPlayer = new Vector3[1];
 
 	private bool flagStartTimer = false;
 	private const float TIME_MAX_PIC_ACTIVE = 10.0f;

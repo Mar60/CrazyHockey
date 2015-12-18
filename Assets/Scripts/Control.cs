@@ -11,7 +11,8 @@ public class Control : MonoBehaviour {
     private GameObject timerU;
     private Vector3 initialPosition;
     private bool gameStarted;
-    private Vector3 force;
+    private Vector3 force,direction;
+    private float speedWall;
 	
 	void Start()  
 	{  
@@ -19,6 +20,7 @@ public class Control : MonoBehaviour {
         initialPosition = GetComponent<Transform>().position;
         force = new Vector3(1,0,1);
         Debug.Log(Vector3.left);
+        direction = new Vector3(0, 0, 0);
 
     }
     void Update()  
@@ -46,7 +48,22 @@ public class Control : MonoBehaviour {
     {
         if (gameStarted)
         {
+           
+
             //addforce();
+            if (rb.velocity != direction && rb.velocity != Vector3.zero)
+            {
+                direction = rb.velocity;
+            }
+            if(rb.velocity.magnitude != speedWall && rb.velocity.magnitude >1)
+            {
+                if (rb.velocity.magnitude < 25)
+                {
+                    speedWall = rb.velocity.magnitude;
+                }
+                Debug.Log(rb.velocity.magnitude);
+            }
+
         }
     }
 	
@@ -81,6 +98,11 @@ public class Control : MonoBehaviour {
         rb.AddForce(force * 1000);
        // Debug.Log(force);
     }
+    public void addSpecifiedForce()
+    {
+        rb.AddForce(force * speedWall);
+    }
+
     public float getTimer()
     {
         return currentTimer;
@@ -100,7 +122,6 @@ public class Control : MonoBehaviour {
 
     void OnCollisionEnter(Collision other)
     {
-        Debug.Log(other.gameObject);
         if(other.gameObject.tag == "Player")
         {
             setForce(other.gameObject.GetComponent<Transform>().forward);
@@ -109,6 +130,11 @@ public class Control : MonoBehaviour {
         if(GetComponent<Renderer>().material.color == Color.red)
         {
             GetComponent<Renderer>().material.color = Color.white;
+        }
+        if(other.gameObject.layer == 10)
+        {
+            force = Vector3.Reflect(direction, other.contacts[0].normal);
+            addSpecifiedForce();
         }
     }
 } 

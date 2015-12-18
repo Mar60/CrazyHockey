@@ -217,10 +217,10 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
             Vector2 input = new Vector2
             {
-                 x = CrossPlatformInputManager.GetAxis("Horizontal"),
-                y = CrossPlatformInputManager.GetAxis("Vertical")
-               // x = m_controller.JoystickX,
-               // y=m_controller.JoystickY
+                 //x = CrossPlatformInputManager.GetAxis("Horizontal"),
+                //y = CrossPlatformInputManager.GetAxis("Vertical")
+                x = m_controller.JoystickX,
+                y=m_controller.JoystickY
                 };
 			movementSettings.UpdateDesiredTargetSpeed(input);
             return input;

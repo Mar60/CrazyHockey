@@ -14,12 +14,13 @@ public class BonusPlayerManager : MonoBehaviour {
     private bool firstTimeButton = true;
     private int cpt;
     private GameObject hand;
-    private float initialPosition;
+    private float initialPosition,initialRotation;
     private GameObject ball;
     private bool blurVision, resetTimer;
     private float startTime, currentTimer;
 	private Vector3 NULL_VECTOR3 = new Vector3(200000,200000,200000);
 	private Vector3 localPointTerrainRaycasting;
+
 
 
     // Use this for initialization
@@ -30,7 +31,15 @@ public class BonusPlayerManager : MonoBehaviour {
 	}
 
     // Update is called once per frame
-    void Update() {//TODO match item on the field with power enabled
+    void Update() {
+        if (projectilePowerIsActive > 0 && Input.GetKeyDown("1")/* hand.GetComponent<Transform>().rotation.x < 0.5*/)
+        {
+            if (!GetComponentInChildren<ShootProjectile>().getThrowed())
+            {
+                GetComponentInChildren<ShootProjectile>().sendProjectile();
+                projectilePowerIsActive--;
+            }
+        }
         m_controller = SixenseInput.GetController(SixenseHands.LEFT);
         if (m_controller.GetButtonDown(SixenseButtons.TRIGGER))
         {
@@ -77,20 +86,25 @@ public class BonusPlayerManager : MonoBehaviour {
 				GetComponent<RaiseLowerTerrain>().riseController(localPointTerrainRaycasting);
 				terrainPowerIsActive--;
 				localPointTerrainRaycasting = NULL_VECTOR3;
+                Debug.Log("raiseterrain");
 			}
 			
 		}
-		if (projectilePowerIsActive > 0 && /*Input.GetKeyDown("2")*/m_controller.GetButtonUp(SixenseButtons.FOUR))
-		{
-			GetComponent<ShootProjectile>().sendProjectile();
-			projectilePowerIsActive--;
-			
-		}
+
+
         if(m_controller.GetButtonDown(SixenseButtons.ONE))
         {
             initialPosition = hand.GetComponent<Transform>().position.y;
         }
-
+        if (m_controller.GetButtonDown(SixenseButtons.TWO))
+        {
+            initialPosition = hand.GetComponent<Transform>().position.y;
+            Debug.Log(initialPosition);
+        }
+        if (m_controller.GetButtonDown(SixenseButtons.FOUR))
+        {
+            initialRotation = hand.GetComponent<Transform>().rotation.x;
+        }
 
 
 

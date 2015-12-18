@@ -20,22 +20,23 @@ public class RayCasting : MonoBehaviour
 	public GameObject pointerFinger;
 	public GameObject pointStart;
 	private Vector3 NULL_VECTOR3 = new Vector3(200000,200000,200000);
-
+    private GameObject Terrain;
     //public CursorMode cursorMode = CursorMode.Auto;
     public Vector2 hotSpot = new Vector2(16, 16);   // Offset du centre du curseur
    // public Texture2D cursorOff, cursorDragged, cursorDraggable; // Textures à appliquer aux curseurs
 
     void Start()
     {
-       // Cursor.SetCursor(cursorOff, hotSpot, cursorMode);
+        // Cursor.SetCursor(cursorOff, hotSpot, cursorMode);
         //Cursor.visible = true;
+        Terrain = GameObject.Find("Terrain");
     }
 
     void Update()
     {
 		Ray ray = new Ray(pointStart.transform.position, pointerFinger.transform.position+ new Vector3(0f,0.2f,0f) - pointStart.transform.position);
 		Debug.DrawRay(ray.origin, ray.direction * RAYCASTLENGTH, Color.blue);
-
+        
 		if (Input.GetMouseButtonDown (0)) 
 		{
 			RaycastHit hit;
@@ -44,8 +45,9 @@ public class RayCasting : MonoBehaviour
 			//Ray ray = Camera.main.ScreenPointToRay (Input.mousePosition);
 			//Ray ray = GetComponentInChildren<Camera>().ScreenPointToRay(Input.mousePosition);
 
-			if (Physics.Raycast (ray, out hit)) 
+			if (Physics.Raycast (ray, out hit) && hit.GetType()== typeof(Terrain)) 
 			{
+                
 				GetComponent<RaiseLowerTerrain>().riseController(hit.point);
 			}
 		}
