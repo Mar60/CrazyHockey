@@ -13,20 +13,49 @@ public class Control : MonoBehaviour {
     private bool gameStarted;
     private Vector3 force,direction;
     private float speedWall;
+    private float limit;
+    private GameObject difficulty;
 	
 	void Start()  
-	{  
+	{
+        difficulty = GameObject.Find("Difficulty");
 		rb = GetComponent<Rigidbody>();
         initialPosition = GetComponent<Transform>().position;
         force = new Vector3(1,0,1);
         Debug.Log(Vector3.left);
         direction = new Vector3(0, 0, 0);
+        if (difficulty == null)
+        {
+            limit = 25;
+        }
+        else
+        {
+            switch ((int)difficulty.GetComponent<Difficulty>().val)
+            {
+                case 1:
+                    limit = 25;
+                    break;
+                case 2:
+                    limit = 30;
+                    break;
+                case 3:
+                    limit = 40;
+                    break;
+                case 4:
+                    limit = 50;
+                    break;
+                default:
+                    limit = 25;
+                    break;
+            }
+        }
+        Debug.Log(limit);
 
     }
     void Update()  
 	{  
 		KeyboardMovements();
-
+        //Debug.Log(mainslider.valuee);
         if (count)
         {
             if (resetTimer)
@@ -48,8 +77,8 @@ public class Control : MonoBehaviour {
     {
         if (gameStarted)
         {
-           
 
+            //Debug.Log(limit);
             //addforce();
             if (rb.velocity != direction && rb.velocity != Vector3.zero)
             {
@@ -57,11 +86,11 @@ public class Control : MonoBehaviour {
             }
             if(rb.velocity.magnitude != speedWall && rb.velocity.magnitude >1)
             {
-                if (rb.velocity.magnitude < 25)
+                if (rb.velocity.magnitude < limit)
                 {
                     speedWall = rb.velocity.magnitude;
                 }
-                Debug.Log(rb.velocity.magnitude);
+                //Debug.Log(rb.velocity.magnitude);
             }
 
         }

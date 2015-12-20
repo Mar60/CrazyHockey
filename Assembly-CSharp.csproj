@@ -45,24 +45,25 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Scripts\BallTrigger.cs" />
-     <Compile Include="Assets\Scripts\BonusGenerator.cs" />
+     <Compile Include="Assets\Scripts\Ball\BallTrigger.cs" />
+     <Compile Include="Assets\Scripts\Ball\BonusGenerator.cs" />
      <Compile Include="Assets\Scripts\Control.cs" />
+     <Compile Include="Assets\Scripts\GUI\Difficulty.cs" />
      <Compile Include="Assets\Scripts\GUI\GoalScript.cs" />
      <Compile Include="Assets\Scripts\GUI\ScoreScript.cs" />
      <Compile Include="Assets\Scripts\GUI\TimerUI.cs" />
      <Compile Include="Assets\Scripts\GUI\UIBonusManager.cs" />
      <Compile Include="Assets\Scripts\GUI\menu.cs" />
-     <Compile Include="Assets\Scripts\MagnetManager.cs" />
      <Compile Include="Assets\Scripts\PowerBonus\BlurTrigger.cs" />
      <Compile Include="Assets\Scripts\PowerBonus\BonusPlayerManager.cs" />
+     <Compile Include="Assets\Scripts\PowerBonus\MagnetManager.cs" />
      <Compile Include="Assets\Scripts\PowerBonus\RaiseLowerTerrain.cs" />
+     <Compile Include="Assets\Scripts\PowerBonus\RayCasting.cs" />
      <Compile Include="Assets\Scripts\PowerBonus\ShieldController.cs" />
      <Compile Include="Assets\Scripts\PowerBonus\ShootProjectile.cs" />
      <Compile Include="Assets\Scripts\PowerBonus\SlowTrigger.cs" />
-     <Compile Include="Assets\Scripts\RayCasting.cs" />
-     <Compile Include="Assets\Scripts\slowPower.cs" />
-     <Compile Include="Assets\Scripts\throwing.cs" />
+     <Compile Include="Assets\Scripts\PowerBonus\slowPower.cs" />
+     <Compile Include="Assets\Scripts\PowerBonus\throwing.cs" />
      <Compile Include="Assets\SixenseInput\DemoScenes\Scripts\SixenseHand.cs" />
      <Compile Include="Assets\SixenseInput\DemoScenes\Scripts\SixenseHandsController.cs" />
      <Compile Include="Assets\SixenseInput\DemoScenes\Scripts\SixenseInputTest.cs" />
