@@ -87,7 +87,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
         private Vector3 m_GroundContactNormal;
         private bool m_Jump, m_PreviouslyGrounded, m_Jumping, m_IsGrounded;
         private SixenseHands Sixense;
-        private SixenseInput.Controller m_controller;
+        private SixenseInput.Controller m_controller,m_controller_right;
 
 
         public Vector3 Velocity
@@ -124,15 +124,16 @@ namespace UnityStandardAssets.Characters.FirstPerson
             m_Capsule = GetComponent<CapsuleCollider>();
             mouseLook.Init (transform, cam.transform);
             m_controller = SixenseInput.GetController(SixenseHands.LEFT);
-            Debug.Log(m_controller);
             
         }
 
 
         private void Update()
         {
-            RotateView();
+            //RotateView();
+            m_controller_right = SixenseInput.GetController(SixenseHands.RIGHT);
             m_controller = SixenseInput.GetController(SixenseHands.LEFT);
+            RotateViewWithRazer();
             if (CrossPlatformInputManager.GetButtonDown("Jump") && !m_Jump)
             {
                 m_Jump = true;
@@ -226,6 +227,12 @@ namespace UnityStandardAssets.Characters.FirstPerson
             return input;
         }
 
+        private float GetInputRight()
+        {
+
+            float input = m_controller_right.JoystickX;
+            return input;
+        }
 
         private void RotateView()
         {
@@ -243,6 +250,30 @@ namespace UnityStandardAssets.Characters.FirstPerson
                 Quaternion velRotation = Quaternion.AngleAxis(transform.eulerAngles.y - oldYRotation, Vector3.up);
                 m_RigidBody.velocity = velRotation*m_RigidBody.velocity;
             }
+        }
+
+        private void RotateViewWithRazer()
+        {
+            //Rotates Plater Right 1 unit/second
+            /*if(GetInputRight() < 0)
+            {
+                GetComponent<Transform>().Rotate(Vector3.down * Time.deltaTime * 100 * GetInputRight());
+            }
+            if (GetInputRight() > 0)
+            {
+                GetComponent<Transform>().Rotate(Vector3.up * Time.deltaTime * 100 * GetInputRight());
+            }*/
+            
+            if (Input.GetKey("d"))
+            {
+                GetComponent<Transform>().Rotate(Vector3.up * Time.deltaTime*100);
+            }
+
+            //Rotates Plater Left 1 unit/second
+            if (Input.GetKey("a")) {
+                Debug.Log("yolo");
+                GetComponent<Transform>().Rotate(Vector3.down * Time.deltaTime*100);
+                }
         }
 
 
