@@ -15,9 +15,14 @@ public class Control : MonoBehaviour {
     private float speedWall;
     private float limit;
     private GameObject difficulty;
-	
-	void Start()  
+    public AudioClip soundGoalClip;
+    private AudioSource soundGoalSource;
+
+
+    void Start()  
 	{
+        soundGoalSource = CreateSound(soundGoalClip);
+
         difficulty = GameObject.Find("Difficulty");
 		rb = GetComponent<Rigidbody>();
         initialPosition = GetComponent<Transform>().position;
@@ -68,10 +73,22 @@ public class Control : MonoBehaviour {
             {
                 gameStarted = true;
                 count = false;
+                soundGoalSource.Play();
                 //addforce();
             }
         }
-    } 
+    }
+
+    private AudioSource CreateSound(AudioClip clip)
+    {
+        //Création de la souvelle source audio et configuration de ses propriétés
+        AudioSource source = gameObject.AddComponent<AudioSource>();
+        source.playOnAwake = false;
+        source.clip = clip;
+        source.volume = 10;
+        source.loop = false;
+        return source;
+    }
 
     void FixedUpdate()
     {
@@ -160,7 +177,7 @@ public class Control : MonoBehaviour {
         {
             GetComponent<Renderer>().material.color = Color.white;
         }
-        if(other.gameObject.layer == 10)
+        if(other.gameObject.layer == 10 || other.gameObject.tag == "Terrain")
         {
             force = Vector3.Reflect(direction, other.contacts[0].normal);
             addSpecifiedForce();

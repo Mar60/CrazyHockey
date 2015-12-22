@@ -7,7 +7,8 @@ public class BallTrigger : MonoBehaviour {
 
     private GameObject lastPlayerTouched;
     public BonusGenerator manager;
-
+    private AudioSource soundMagnetSource;
+    public AudioClip soundMagnetClip;
     private const string PLAYER_TAG = "Player";
     private const string BONUS_SHIELD_TAG = "BonusShield";
 
@@ -30,6 +31,7 @@ public class BallTrigger : MonoBehaviour {
         magnetEnable = true;
         magnetLeft = GameObject.Find("MagnetLeft");
         magnetRight = GameObject.Find("MagnetRight");
+        soundMagnetSource = CreateSound(soundMagnetClip);
 
     }
 
@@ -37,6 +39,17 @@ public class BallTrigger : MonoBehaviour {
     void Update () {
 	
 	}
+
+    private AudioSource CreateSound(AudioClip clip)
+    {
+        //Création de la souvelle source audio et configuration de ses propriétés
+        AudioSource source = gameObject.AddComponent<AudioSource>();
+        source.playOnAwake = false;
+        source.clip = clip;
+        source.volume = 10;
+        source.loop = false;
+        return source;
+    }
 
     void OnTriggerEnter(Collider other)
     {
@@ -97,6 +110,7 @@ public class BallTrigger : MonoBehaviour {
                 Debug.Log(rand);
                 if (rand == 1)
                 {
+
                     magnetLeft.GetComponent<MagnetManager>().setMagnet();
                 }
                 else
@@ -104,6 +118,8 @@ public class BallTrigger : MonoBehaviour {
                     magnetRight.GetComponent<MagnetManager>().setMagnet();
                 }
                 magnetEnable = false;
+                soundMagnetSource.Play();
+
             }
 
 

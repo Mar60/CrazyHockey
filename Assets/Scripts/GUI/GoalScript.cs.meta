@@ -1,10 +1,11 @@
 fileFormatVersion: 2
 guid: 870ba276f60f61c4d86389dba4a0a8b4
-timeCreated: 1447860139
+timeCreated: 1450718502
 licenseType: Free
 MonoImporter:
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - soundGoalClip: {fileID: 8300000, guid: 1fe9359f931f63548aa2aef68ef992b6, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

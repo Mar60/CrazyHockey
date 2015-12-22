@@ -20,7 +20,8 @@ public class BonusPlayerManager : MonoBehaviour {
     private float startTime, currentTimer;
 	private Vector3 NULL_VECTOR3 = new Vector3(200000,200000,200000);
 	private Vector3 localPointTerrainRaycasting;
-
+    public AudioClip soundGoalClip;
+    private AudioSource soundGoalSource;
 
 
     // Use this for initialization
@@ -28,16 +29,20 @@ public class BonusPlayerManager : MonoBehaviour {
         hand = GameObject.Find("Hand - Left");
         ball = GameObject.Find("Ball");
 		localPointTerrainRaycasting = NULL_VECTOR3;
-	}
+        soundGoalSource = CreateSound(soundGoalClip);
+
+    }
 
     // Update is called once per frame
     void Update() {
-        if (projectilePowerIsActive > 0 && Input.GetKeyDown("1")/* hand.GetComponent<Transform>().rotation.x < 0.5*/)
+        if (projectilePowerIsActive > 0 && Input.GetKeyDown("1") /*hand.GetComponent<Transform>().rotation.x < 0.5*/)
         {
             if (!GetComponentInChildren<ShootProjectile>().getThrowed())
             {
                 GetComponentInChildren<ShootProjectile>().sendProjectile();
                 projectilePowerIsActive--;
+                soundGoalSource.Play();
+
             }
         }
         m_controller = SixenseInput.GetController(SixenseHands.LEFT);
@@ -190,5 +195,16 @@ public class BonusPlayerManager : MonoBehaviour {
         blurVision = true;
         resetTimer = true;
     }
+    private AudioSource CreateSound(AudioClip clip)
+    {
+        //Création de la souvelle source audio et configuration de ses propriétés
+        AudioSource source = gameObject.AddComponent<AudioSource>();
+        source.playOnAwake = false;
+        source.clip = clip;
+        source.volume = 10;
+        source.loop = false;
+        return source;
+    }
+
 }
 

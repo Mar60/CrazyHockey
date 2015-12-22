@@ -19,17 +19,30 @@ public class SixenseHand : MonoBehaviour
     private float initialHandPosition;
     private int cpt=0;
     private bool buttonDown = false;
+    public AudioClip soundGoalClip;
+    private AudioSource soundGoalSource;
 
-	protected void Start() 
+    protected void Start() 
 	{
 		// get the Animator
 		m_animator = gameObject.GetComponent<Animator>();
 		m_initialRotation = transform.localRotation;
 		m_initialPosition = transform.localPosition;
-	}
+        soundGoalSource = CreateSound(soundGoalClip);
 
+    }
+    private AudioSource CreateSound(AudioClip clip)
+    {
+        //Création de la souvelle source audio et configuration de ses propriétés
+        AudioSource source = gameObject.AddComponent<AudioSource>();
+        source.playOnAwake = false;
+        source.clip = clip;
+        source.volume = 10;
+        source.loop = false;
+        return source;
+    }
 
-	protected void Update()
+    protected void Update()
 	{
 		if ( m_controller == null )
 		{
@@ -146,6 +159,8 @@ public class SixenseHand : MonoBehaviour
                     
                     other.gameObject.GetComponent<Control>().setForce(forceVector);
                     other.gameObject.GetComponent<Control>().addforce();
+                    soundGoalSource.Play();
+
                 }
                 else
                 {
@@ -153,6 +168,8 @@ public class SixenseHand : MonoBehaviour
 
                     other.gameObject.GetComponent<Control>().setForce(forceVector);
                     other.gameObject.GetComponent<Control>().addforce();
+                    soundGoalSource.Play();
+
                 }
             }
         }

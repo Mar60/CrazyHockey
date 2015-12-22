@@ -254,17 +254,18 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
         private void RotateViewWithRazer()
         {
+            Debug.Log(GetInputRight());
             //Rotates Plater Right 1 unit/second
-            /*if(GetInputRight() < 0)
+            if(GetInputRight() < 0)
             {
-                GetComponent<Transform>().Rotate(Vector3.down * Time.deltaTime * 100 * GetInputRight());
+                GetComponent<Transform>().Rotate(Vector3.up * Time.deltaTime * 100 * GetInputRight());
             }
             if (GetInputRight() > 0)
             {
                 GetComponent<Transform>().Rotate(Vector3.up * Time.deltaTime * 100 * GetInputRight());
-            }*/
+            }
             
-            if (Input.GetKey("d"))
+            /*if (Input.GetKey("d"))
             {
                 GetComponent<Transform>().Rotate(Vector3.up * Time.deltaTime*100);
             }
@@ -273,7 +274,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
             if (Input.GetKey("a")) {
                 Debug.Log("yolo");
                 GetComponent<Transform>().Rotate(Vector3.down * Time.deltaTime*100);
-                }
+                }*/
         }
 
 
