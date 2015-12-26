@@ -49,9 +49,9 @@ public class BonusGenerator : MonoBehaviour {
             // Debug.Log(LOG_TAG + "Creation bonus  (" + x + ", " + y + " , " + z + ")"); 
             //Instantiate(bonusPrefab, bonusPosition, Quaternion.identity);
 
-            //int choiceBonus = Random.Range(1,6);
+            // int choiceBonus = Random.Range(1,6);
             int choiceBonus = 5;
-			switch(choiceBonus){
+            switch (choiceBonus){
 				case 1 ://Shield bonus
 					Debug.Log(LOG_TAG + "Creation shield bonus "); 
 					createBonusItem(bonusShieldPrefab, bonusShieldPrefab.GetComponent<Renderer>().bounds.size);

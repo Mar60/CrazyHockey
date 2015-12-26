@@ -17,17 +17,20 @@ public class Control : MonoBehaviour {
     private GameObject difficulty;
     public AudioClip soundGoalClip;
     private AudioSource soundGoalSource;
-
+    public Material defaultMaterial;
+    public Material trapMaterial;
+    public bool trapmat;
 
     void Start()  
 	{
+        GetComponent<MeshRenderer>().material = defaultMaterial;
+        trapmat = false;
         soundGoalSource = CreateSound(soundGoalClip);
-
         difficulty = GameObject.Find("Difficulty");
 		rb = GetComponent<Rigidbody>();
         initialPosition = GetComponent<Transform>().position;
         force = new Vector3(1,0,1);
-        Debug.Log(Vector3.left);
+       // Debug.Log(Vector3.left);
         direction = new Vector3(0, 0, 0);
         if (difficulty == null)
         {
@@ -54,13 +57,13 @@ public class Control : MonoBehaviour {
                     break;
             }
         }
-        Debug.Log(limit);
+        //Debug.Log(limit);
 
     }
     void Update()  
 	{  
 		KeyboardMovements();
-        //Debug.Log(mainslider.valuee);
+        //Debug.Log();
         if (count)
         {
             if (resetTimer)
@@ -77,6 +80,18 @@ public class Control : MonoBehaviour {
                 //addforce();
             }
         }
+    }
+
+    public void setTrap()
+    {
+        GetComponent<MeshRenderer>().material = trapMaterial;
+        trapmat = true;
+    }
+
+    public void setDefault()
+    {
+        GetComponent<MeshRenderer>().material = defaultMaterial;
+        trapmat = false;
     }
 
     private AudioSource CreateSound(AudioClip clip)
@@ -168,14 +183,14 @@ public class Control : MonoBehaviour {
 
     void OnCollisionEnter(Collision other)
     {
-        if(other.gameObject.tag == "Player")
+        if(other.collider.name == "Shield")
         {
             setForce(other.gameObject.GetComponent<Transform>().forward);
             addforce();
         }
-        if(GetComponent<Renderer>().material.color == Color.red)
+        if(trapmat)
         {
-            GetComponent<Renderer>().material.color = Color.white;
+            setDefault();
         }
         if(other.gameObject.layer == 10 || other.gameObject.tag == "Terrain")
         {

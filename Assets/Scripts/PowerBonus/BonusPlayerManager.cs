@@ -35,6 +35,11 @@ public class BonusPlayerManager : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
+        if(Input.GetKeyDown("2"))
+        {
+            GetComponent<ShieldController>().riseShield();
+
+        }
         if (projectilePowerIsActive > 0 && Input.GetKeyDown("1") /*hand.GetComponent<Transform>().rotation.x < 0.5*/)
         {
             if (!GetComponentInChildren<ShootProjectile>().getThrowed())
@@ -46,12 +51,12 @@ public class BonusPlayerManager : MonoBehaviour {
             }
         }
         m_controller = SixenseInput.GetController(SixenseHands.LEFT);
-        if (m_controller.GetButtonDown(SixenseButtons.TRIGGER))
+        if (/*m_controller.GetButtonDown(SixenseButtons.TRIGGER)*/Input.GetKeyDown("3"))
         {
-            if (ballTrapPowerIsActive > 0 && ball.GetComponent<Renderer>().material.color != Color.red)
+            if (ballTrapPowerIsActive > 0 && !ball.GetComponent<Control>().trapmat )
             {
                 ballTrapPowerIsActive--;
-                ball.GetComponent<Renderer>().material.color = Color.red;
+                 ball.GetComponent<Control>().setTrap();
             }
         }
 
@@ -73,7 +78,7 @@ public class BonusPlayerManager : MonoBehaviour {
 
 
         }
-        if (shieldPowerIsActive > 0 && /*Input.GetKeyDown("1")*/m_controller.GetButtonUp(SixenseButtons.ONE))
+        if (shieldPowerIsActive > 0 && /*Input.GetKeyDown("2")*/m_controller.GetButtonUp(SixenseButtons.ONE))
         {
 	        if ((hand.GetComponent<Transform>().position.y - initialPosition) > 0.1)
 	        {
@@ -154,6 +159,11 @@ public class BonusPlayerManager : MonoBehaviour {
 		}*/
     
    // }
+
+    public void setLastPlayerTouched()
+    {
+        ball.GetComponent<BallTrigger>().lastPlayerTouched = this.gameObject;  
+    }
 
     public void activateShieldPower() {
         Debug.Log(LOG_TAG+"Get shield power");

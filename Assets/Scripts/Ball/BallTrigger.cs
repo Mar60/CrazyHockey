@@ -5,7 +5,7 @@ public class BallTrigger : MonoBehaviour {
     private const string LOG_TAG = "BallTrigger - ";
 
 
-    private GameObject lastPlayerTouched;
+    public GameObject lastPlayerTouched;
     public BonusGenerator manager;
     private AudioSource soundMagnetSource;
     public AudioClip soundMagnetClip;
@@ -27,7 +27,7 @@ public class BallTrigger : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        lastPlayerTouched = GameObject.Find("Player2");
+        lastPlayerTouched = null;
         magnetEnable = true;
         magnetLeft = GameObject.Find("MagnetLeft");
         magnetRight = GameObject.Find("MagnetRight");
@@ -37,8 +37,9 @@ public class BallTrigger : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
-	
-	}
+       // Debug.Log(lastPlayerTouched);
+
+    }
 
     private AudioSource CreateSound(AudioClip clip)
     {
@@ -53,6 +54,7 @@ public class BallTrigger : MonoBehaviour {
 
     void OnTriggerEnter(Collider other)
     {
+
         if (other.gameObject.CompareTag(BONUS_SHIELD_TAG))
         {
             Debug.Log(LOG_TAG + "Destruction bonus shield");
@@ -93,11 +95,11 @@ public class BallTrigger : MonoBehaviour {
 				lastPlayerTouched.GetComponent<BonusPlayerManager>().activateBallTrapPower();
 			}
 		}
-        else if (other.gameObject.CompareTag(PLAYER_TAG)) {
+        /*else if (other.gameObject.CompareTag(PLAYER_TAG)) {
             Debug.Log(LOG_TAG + "Save last player who touched the ball");
             lastPlayerTouched = other.gameObject;
 
-        }
+        }*/
         else if (other.gameObject.CompareTag(BONUS_MAGNET_TAG))
         {
             Debug.Log(LOG_TAG + "Destruction bonus shield");

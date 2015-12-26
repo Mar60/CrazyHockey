@@ -16,6 +16,6 @@ public class ScoreScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        text.text = "Joueur 1 : "+ player1.GetComponent<GoalScript>().score() + "Joueur 2 :" + player2.GetComponent<GoalScript>().score();
+        text.text = "Joueur 1 : "+ player1.GetComponent<GoalScript>().score() + "\nJoueur 2 : " + player2.GetComponent<GoalScript>().score();
     }
 }

@@ -6,6 +6,7 @@
 
 using UnityEngine;
 using System.Collections;
+using UnityStandardAssets.Characters.FirstPerson;
 
 public class SixenseHand : MonoBehaviour
 {
@@ -138,15 +139,16 @@ public class SixenseHand : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
+        Debug.Log("triggered");
         Vector3 forceVector;
         forceVector = other.gameObject.GetComponent<Renderer>().bounds.center - GetComponent<Transform>().position;
         if (other.gameObject.name == "Ball")
         {
-            Debug.Log("triggered");
-            if (other.gameObject.GetComponent<Renderer>().material.color == Color.red)
+            GetComponentInParent<BonusPlayerManager>().setLastPlayerTouched();
+            if (other.gameObject.GetComponent<Control>().trapmat)
             {
                 GetComponentInParent<BonusPlayerManager>().setBlur();
-                other.gameObject.GetComponent<Renderer>().material.color = Color.white;
+                other.gameObject.GetComponent<Control>().setDefault();
             }
 
             //other.gameObject.GetComponent<Rigidbody>().AddForce(forceVector * 500);
@@ -155,7 +157,6 @@ public class SixenseHand : MonoBehaviour
                 Debug.Log(m_controller.Position.z);
                 if(m_controller.Position.z > 0 && initialHandPosition < -100)
                 {
-                    Debug.Log("force set");
                     
                     other.gameObject.GetComponent<Control>().setForce(forceVector);
                     other.gameObject.GetComponent<Control>().addforce();
@@ -164,14 +165,14 @@ public class SixenseHand : MonoBehaviour
                 }
                 else
                 {
-                    GetComponentInParent<BonusPlayerManager>().setBlur();
-
+                    GetComponent<RigidbodyFirstPersonController>().setSlowed();
                     other.gameObject.GetComponent<Control>().setForce(forceVector);
                     other.gameObject.GetComponent<Control>().addforce();
                     soundGoalSource.Play();
 
                 }
             }
+
         }
 
     }

@@ -88,7 +88,16 @@ namespace UnityStandardAssets.Characters.FirstPerson
         private bool m_Jump, m_PreviouslyGrounded, m_Jumping, m_IsGrounded;
         private SixenseHands Sixense;
         private SixenseInput.Controller m_controller,m_controller_right;
+        private bool slowed = false;
+        float startTime = 0.0f;
+        bool count = true;
+        bool resetTimer = true;
+        float currentTimer;
 
+        public void setSlowed()
+        {
+            slowed = true;
+        }
 
         public Vector3 Velocity
         {
@@ -134,9 +143,28 @@ namespace UnityStandardAssets.Characters.FirstPerson
             m_controller_right = SixenseInput.GetController(SixenseHands.RIGHT);
             m_controller = SixenseInput.GetController(SixenseHands.LEFT);
             RotateViewWithRazer();
-            if (CrossPlatformInputManager.GetButtonDown("Jump") && !m_Jump)
+            /*if (CrossPlatformInputManager.GetButtonDown("Jump") && !m_Jump)
             {
                 m_Jump = true;
+            }*/
+            if(slowed)
+            {
+                movementSettings.BackwardSpeed = 8.0f;
+                movementSettings.ForwardSpeed = 8.0f;
+                movementSettings.StrafeSpeed = 8.0f;
+               if (resetTimer)
+               {
+                   startTime = Time.time;
+                   resetTimer = false;
+               }
+                if (startTime + 5.0f < Time.time)
+                {
+                        resetTimer = true;
+                        slowed = false;
+                    movementSettings.BackwardSpeed = 15.0f;
+                    movementSettings.ForwardSpeed = 15.0f;
+                    movementSettings.StrafeSpeed = 15.0f;
+                }
             }
         }
 
