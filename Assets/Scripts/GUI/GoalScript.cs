@@ -35,9 +35,12 @@ public class GoalScript : MonoBehaviour {
 
     void OnTriggerEnter(Collider other)
     {
-        cpt++;
-        soundGoalSource.Play();
-        Ball.GetComponent<Control>().resetTimerBall();
+        if(other.gameObject.layer == 6)
+        {
+            cpt++;
+            soundGoalSource.Play();
+            Ball.GetComponent<Control>().resetTimerBall();
+        }
     }
 
     public int score()
